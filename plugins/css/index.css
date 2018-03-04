@@ -1,0 +1,152 @@
+.top{
+	background-color:red;
+	height:50px;
+	width:100%;
+	position: fixed;
+	top:0;display: -webkit-flex;
+	display: flex;
+	justify-content:space-between;
+	align-items:center;
+	flex-wrap:wrap;
+	z-index: 99;
+}
+.top_left{
+	min-width:120px;
+	height:50px;
+	background-color: green;
+	/*float: left;*/
+	font-size: 18px;
+	line-height: 50px;
+	text-align: center;
+	position:relative;
+	order:0
+}
+
+.top_center{
+	/*margin:0 auto;*/
+	background-color: pink;
+	width:90%;
+	max-width: 350px;
+	height:35px;
+	border-radius:25px;
+	position:relative;
+	display: flex;
+	align-items:center;
+	justify-content:space-around;
+	margin:auto auto;
+	/*flex-shrink:0.8;*/
+	order:1
+}
+.top_center_small{
+	order:3;
+	margin-top:8px;
+}
+.top_center div{
+	width:100%;
+	max-width: 110px;
+	min-width: 70px;
+	font-size: 14px;
+	text-align:center;
+}
+.top_right{
+	
+	height: 50px;
+	width:130px;
+	background-color: pink;
+	position:relative;
+	order:2;
+	line-height: 50px
+}
+.panel{
+	margin:0 auto;
+	margin-top:72px;
+	width:100%;
+	max-width: 1235px;
+	height:500px;
+	border-radius:25px;
+	border:1px;
+}
+.panel_small{
+	margin-top:102px;
+}
+
+.report_top{
+	background-color: rgb(247,247,247);
+	height: 45px;
+	width:100%;
+}
+.report_item{
+}
+.report_category{
+	height: 40px;
+	padding-top:15px;
+	margin-bottom:15px;
+	/*//line-height: 60px*/
+
+}
+.report_category div{
+	margin-right:5px;
+	margin-left:5px;
+	font-size: 16px;
+	font-weight: bold;
+	float:left;
+
+}
+.report_category_dropdown{
+ 	width:170px;
+ 	white-space: nowrap;
+ 	overflow: hidden;
+ 	text-overflow: ellipsis
+}
+.report_cata_option{
+	height:30px;
+	line-height: 30px;
+	padding-left: 5px;
+
+}
+.reoport_entry{
+	float:left;
+	width:33%;
+}
+
+.report_menu{
+	width:95%;
+	margin:0 auto;
+	border: 1px solid #ccc;
+	background-color: rgb(241,241,241);
+	/*display: none*/
+}
+.report_editor{
+	width:95%;
+	margin:0 auto;
+	border: 1px solid #ccc;
+	/*min-height: 100px;
+	max-height: 300px*/
+	height:50px;
+
+}
+@media screen  and  (max-width:970px){
+.report_category div{
+	margin-right:2px;
+	margin-left:2px;
+	font-size: 16px;
+	font-weight: bold;
+	float:left;
+
+}
+.report_category_dropdown{
+ 	width:40px;
+ 	white-space: nowrap;
+ 	overflow: hidden;
+ 	text-overflow: ellipsis
+}
+.reoport_entry{
+	margin:0 auto;
+	width:90%;
+	
+	float:none;
+}
+
+   
+
+}

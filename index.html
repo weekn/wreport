@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+
+<!-- <script type="text/javascript" src="plugins/js/jquery1.9.min.js"></script> -->
+<script type="text/javascript" src="plugins/js/jquery-3.3.1.min.js"></script>
+
+<script type="text/javascript" src="plugins/js/wangEditor.min.js"></script>
+<script src="plugins/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+
+
+<link href="plugins/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="plugins/css/index.css" type="text/css" />
+<script type="text/javascript" src="plugins/js/index.js"></script>
+
+<body style="margin: 0" >
+	<div class="top">
+
+		<div class="top_left">经分组</div>
+		
+		<div class="top_center">
+			<div>我的周报</div>
+			<div>团队周报</div>
+			<div>我的成就</div>
+		</div>
+		<div class="top_right">434</div>
+	</div>
+	<!-- <div style="position:fixed;top:50px;width:100%;">
+		
+		<div class="menu_outcome" style="border: 1px solid #ccc;width:290px;margin:0 auto"></div>
+	</div>  -->
+	
+	<div class="panel">
+		<div class="report_top"></div>
+
+		<div id="add_report" style="font-size: 16px;height: 35px;line-height: 35px;margin-left: 10px;color:rgb(130,195,255)">
+			+ 点击添加一项周报
+		</div>
+		
+
+
+	</div>
+
+
+
+	
+<div id="report_item_demo" style="display: none">
+	<div class="report_item" item="1">
+			<div class="report_category">
+				<div><span class="glyphicon glyphicon-minus"></span></div>
+				<div class="dropdown">
+					<div  data-toggle="dropdown" class='report_category_dropdown' >未选择</div>
+					<ul class="dropdown-menu" role="menu" level="l1">
+						<li class="dropdown-header">一级项目</li>
+						
+						
+					</ul>
+				</div>
+				<div><span class="glyphicon glyphicon-chevron-right"></span></div>
+				<div class="dropdown">
+					<div class='report_category_dropdown'  data-toggle="dropdown" >未选择</div>
+					<ul class="dropdown-menu" role="menu" level="l2">
+						<li  class="dropdown-header">二级项目</li>
+					
+					</ul>
+
+				</div>
+				<div><span class="glyphicon glyphicon-chevron-right"></span></div>
+				<div class="dropdown">
+					<div class='report_category_dropdown'  data-toggle="dropdown" >未选择</div>
+					<ul class="dropdown-menu dropdown-menu-right" role="menu" level="l3">
+						<li  class="dropdown-header">三级项目</li>
+									
+					</ul>
+				</div>
+
+				<div style="float: right;margin-right:15px" class="dropdown">
+					
+					
+					<span class="glyphicon glyphicon-th" data-toggle="dropdown"></span>
+					
+					<ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
+						<li role="presentation" name='report_item_remove' class="report_cata_option">删除</li>
+						
+					</ul>
+				</div>
+			</div>
+
+			
+
+			<div class="reoport_entry" tabindex="0" >
+				<div style="text-align: center;width:100%;font-size:19px">本周成果</div>
+				<!-- <div class="report_outcome"></div> -->
+				<div class="report_menu report_menu_outcome" tabindex="0"></div>
+				<div class="report_editor report_outcome" ></div>
+				
+				
+			</div>
+			<div class="reoport_entry" tabindex="0" >
+				<div style="text-align: center;width:100%;font-size:19px">存在问题</div>
+				<div class="report_menu report_menu_problem" tabindex="0"></div>
+				<div class="report_editor report_problem" ></div>
+			</div>
+			<div class="reoport_entry" tabindex="0">
+				<div style="text-align: center;width:100%;font-size:19px">下周计划</div>
+				<div class="report_menu report_menu_plan" tabindex="0"></div>
+				<div class="report_editor report_plan" ></div>
+
+			</div>
+
+			<div style="height:1px; margin-top:10px;clear: both;overflow: hidden"></div>
+			<div style="width:90%;height:1px; margin:30px auto;clear: both;border-bottom:1px solid #ccc;margin-bottom: 20px"></div>
+			
+		</div>
+</div>
+
+</body>
+</html>
+
+<script type="text/javascript" src="plugins/js/reportItem.js"></script>
