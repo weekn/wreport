@@ -1,126 +1,99 @@
 <!DOCTYPE html>
 <html>
 <meta charset="utf-8">
-
 <script data-main="plugins/js/main" defer async="true" src="plugins/js/require.js"></script>
-
-
 <link href="plugins/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="plugins/css/index.css" type="text/css" />
+<script type="text/javascript">
+</script>
 
-
-<body style="margin: 0;background-color: rgb(247,247,247)" >
-  <div class="top">
-
-    <div class="top_left">经分组</div>
-    
-    <div class="top_center">
-      <div class="top_center_div top_center_active" style="border-top-left-radius:25px;border-bottom-left-radius:25px;">我的周报</div>
-      <div class="top_center_div">团队周报</div>
-      <div class="top_center_div" style="border-top-right-radius:25px;border-bottom-right-radius:25px; ">我的成就</div>
+<body style="margin: 0;background-color: rgb(247,247,247)">
+    <div class="top">
+        <div class="top_left">经分组</div>
+        <div class="top_center">
+            <div class="top_center_div top_center_active" style="border-top-left-radius:25px;border-bottom-left-radius:25px;">我的周报</div>
+            <div class="top_center_div">团队周报</div>
+            <div class="top_center_div" style="border-top-right-radius:25px;border-bottom-right-radius:25px; ">我的成就</div>
+        </div>
+        <div class="top_right">
+            <img style="border:1px solid rgb(219,220,224);width:38px;height:38px;padding:2px;border-radius:8px;background-color: #FFF;margin-bottom: 2px" src="plugins/img/user.png" />
+            <span style="color:#FFF;margin-left:10px">weekn</span>
+        </div>
+        <!-- <div style="height:1px; margin-top:20px;clear: both;overflow: hidden"></div> -->
     </div>
-    <div class="top_right">
-      <img style="border:1px solid rgb(219,220,224);width:38px;height:38px;padding:2px;border-radius:8px;background-color: #FFF;margin-bottom: 2px" src="plugins/img/user.png"/>
-      <span style="color:#FFF;margin-left:10px">weekn</span>
-    </div>
-    <!-- <div style="height:1px; margin-top:20px;clear: both;overflow: hidden"></div> -->
-  </div>
-  <!-- <div style="position:fixed;top:50px;width:100%;">
+    <!-- <div style="position:fixed;top:50px;width:100%;">
     
     <div class="menu_outcome" style="border: 1px solid #ccc;width:290px;margin:0 auto"></div>
   </div>  -->
-  
-  <div class="panel">
-
-    <div class="report_top">
-      <img style="border:1px solid rgb(219,220,224);width:38px;height:38px;padding:2px;border-radius:8px;background-color: #FFF;margin-bottom: 2px" src="plugins/img/user.png"/>
-      <span style="color:#000;margin-left:5px">weekn</span>
-    </div>
-
-    <div id="add_report" style="font-size: 16px;height: 35px;width:150px;line-height: 35px;margin-left: 30px;color:rgb(130,195,255);cursor:pointer;">
-      + 点击添加一项周报
-    </div>
-    
-    <div class="report_submit" style="display: none">提交</div>
-    <div style="height:1px; margin-top:20px;clear: both;overflow: hidden"></div>
-
-
-
-
-
-
-  
-<div id="report_item_demo" style="display: none">
-  <div class="report_item" item="1">
-      <div class="report_category">
-        <div><span class="glyphicon glyphicon-minus"></span></div>
-        <div class="dropdown">
-          <div  data-toggle="dropdown" class='report_category_dropdown' >未选择</div>
-          <ul class="dropdown-menu" role="menu" level="l0">
-            <li class="dropdown-header">一级项目</li>
-            
-            
-          </ul>
+    <div class="panel">
+        <div class="report_top">b
+            <img style="border:1px solid rgb(219,220,224);width:38px;height:38px;padding:2px;border-radius:8px;background-color: #FFF;margin-bottom: 2px" src="plugins/img/user.png" />
+            <span style="color:#000;margin-left:5px">weekn</span>
         </div>
-        <div><span class="glyphicon glyphicon-chevron-right"></span></div>
-        <div class="dropdown">
-          <div class='report_category_dropdown'  data-toggle="dropdown" >未选择</div>
-          <ul class="dropdown-menu" role="menu" level="l1">
-            <li  class="dropdown-header">二级项目</li>
-          
-          </ul>
-
+        <div id="add_report" style="font-size: 16px;height: 35px;width:150px;line-height: 35px;margin-left: 30px;color:rgb(130,195,255);cursor:pointer;">
+            + 点击添加一项周报
         </div>
-        <div><span class="glyphicon glyphicon-chevron-right"></span></div>
-        <div class="dropdown">
-          <div class='report_category_dropdown'  data-toggle="dropdown" >未选择</div>
-          <ul class="dropdown-menu dropdown-menu-right" role="menu" level="l2">
-            <li  class="dropdown-header">三级项目</li>
-                  
-          </ul>
+        <div class="report_submit" style="display: none">提交</div>
+        <div style="height:1px; margin-top:20px;clear: both;overflow: hidden"></div>
+        <div id="report_item_demo" style="display: none">
+            <div class="report_item" item="1">
+                <div class="report_category">
+                    <div><span class="glyphicon glyphicon-minus"></span></div>
+                    <div class="dropdown">
+                        <div data-toggle="dropdown" class='report_category_dropdown'>未选择</div>
+                        <ul class="dropdown-menu" role="menu" level="l0">
+                            <li class="dropdown-header">一级项目</li>
+                        </ul>
+                    </div>
+                    <div><span class="glyphicon glyphicon-chevron-right"></span></div>
+                    <div class="dropdown">
+                        <div class='report_category_dropdown' data-toggle="dropdown">未选择</div>
+                        <ul class="dropdown-menu" role="menu" level="l1">
+                            <li class="dropdown-header">二级项目</li>
+                        </ul>
+                    </div>
+                    <div><span class="glyphicon glyphicon-chevron-right"></span></div>
+                    <div class="dropdown">
+                        <div class='report_category_dropdown' data-toggle="dropdown">未选择</div>
+                        <ul class="dropdown-menu dropdown-menu-right" role="menu" level="l2">
+                            <li class="dropdown-header">三级项目</li>
+                        </ul>
+                    </div>
+                    <div style="float: right;margin-right:15px" class="dropdown">
+                        <span class="glyphicon glyphicon-th" data-toggle="dropdown"></span>
+                        <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
+                            <li role="presentation" name='report_item_remove' class="report_cata_option">删除</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="report_content" style="width:95%;margin:0 auto">
+                    <div class="report_entry" tabindex="0">
+                        <div class="report_entry_title">本周成果</div>
+                        <!-- <div class="report_outcome"></div> -->
+                        <div style="margin:0 auto;width:95%">
+                            <div class="report_menu report_menu_outcome" tabindex="0"></div>
+                            <div class="report_editor report_outcome" style="border-left: 3px solid rgb(245,245,245)"></div>
+                        </div>
+                    </div>
+                    <div class="report_entry" tabindex="0">
+                        <div class="report_entry_title">存在问题</div>
+                        <div style="margin:0 auto;width:95%">
+                            <div class="report_menu report_menu_problem" tabindex="0" style="margin:0 auto"></div>
+                            <div class="report_editor report_problem" style="margin:0 auto"></div>
+                        </div>
+                    </div>
+                    <div class="report_entry" tabindex="0">
+                        <div class="report_entry_title">下周计划</div>
+                        <div style="margin:0 auto;width:95%">
+                            <div class="report_menu report_menu_plan" tabindex="0" style="margin:0 auto"></div>
+                            <div class="report_editor report_plan" style="border-right: 3px solid rgb(245,245,245);margin:0 auto"></div>
+                        </div>
+                    </div>
+                </div>
+                <div style="height:1px; margin-top:10px;clear: both;overflow: hidden"></div>
+                <div style="width:90%;height:1px; margin:20px auto;clear: both;border-bottom:3px solid rgb(245,245,245);margin-bottom: 20px"></div>
+            </div>
         </div>
-
-        <div style="float: right;margin-right:15px" class="dropdown">
-          
-          
-          <span class="glyphicon glyphicon-th" data-toggle="dropdown"></span>
-          
-          <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
-            <li role="presentation" name='report_item_remove' class="report_cata_option">删除</li>
-            
-          </ul>
-        </div>
-      </div>
-
-      
-      
-      <div class="report_entry" tabindex="0" >
-        <div style="text-align: center;width:100%;font-size:19px">本周成果</div>
-        <!-- <div class="report_outcome"></div> -->
-
-        <div class="report_menu report_menu_outcome" tabindex="0" style="margin:0 auto"></div>
-        <div class="report_editor report_outcome" style="border-left: 3px solid rgb(245,245,245);margin:0 auto"></div>
-        
-        
-      </div>
-      <div class="report_entry" tabindex="0" >
-        <div style="text-align: center;width:100%;font-size:19px">存在问题</div>
-        <div class="report_menu report_menu_problem" tabindex="0" style="margin:0 auto"></div>
-        <div class="report_editor report_problem" style="margin:0 auto"></div>
-      </div>
-      <div class="report_entry" tabindex="0">
-        <div style="text-align: center;width:100%;font-size:19px">下周计划</div>
-        <div class="report_menu report_menu_plan" tabindex="0" style="margin:0 auto"></div>
-        <div class="report_editor report_plan" style="border-right: 3px solid rgb(245,245,245);margin:0 auto"></div>
-
-      </div>
-
-      <div style="height:1px; margin-top:10px;clear: both;overflow: hidden"></div>
-      <div style="width:90%;height:1px; margin:20px auto;clear: both;border-bottom:3px solid rgb(245,245,245);margin-bottom: 20px"></div>
-      
-    </div>
-</div>
-
 </body>
-</html>
 
+</html>
