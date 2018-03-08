@@ -1,38 +1,39 @@
+
 <script id="addReportTmpl" type="text/x-jsrender">
     <div class="report_top">
         <img style="border:1px solid rgb(219,220,224);width:38px;height:38px;padding:2px;border-radius:8px;background-color: #FFF;margin-bottom: 2px" src="plugins/img/user.png" />
         <span style="color:#000;margin-left:5px">weekn</span>
     </div>
-    {^{props reportItem}}
+    {^{props items}}
     <div class="report_item" item="{{>prop.report_item_num}}">
         <div class="report_category">
             <div><span class="glyphicon glyphicon-minus"></span></div>
             <div class="dropdown">
-                <div data-toggle="dropdown" class='report_category_dropdown'>未选择</div>
+                <div data-toggle="dropdown" class='report_category_dropdown'>{^{option_txt:prop.select_0.name}}</div>
                 <ul class="dropdown-menu" role="menu" level="l0">
                     <li class="dropdown-header">一级项目</li>
                     {^{props prop.option_0}}
-                        <li role="presentation"><a catagory_id="" role="menuitem" tabindex="-1" href="javascript:void(0)">{{>prop.name}}</a></li>
+                        <li role="presentation"><a catagory_id="{{>prop.id}}" role="menuitem" tabindex="-1" href="javascript:void(0)" >{^{:prop.name}}</a></li>
                     {{/props}}
                 </ul>
             </div>
             <div><span class="glyphicon glyphicon-chevron-right"></span></div>
             <div class="dropdown">
-                <div class='report_category_dropdown' data-toggle="dropdown">未选择</div>
+                <div class='report_category_dropdown' data-toggle="dropdown">{^{option_txt:prop.select_1.name}}</div>
                 <ul class="dropdown-menu" role="menu" level="l1">
                     <li class="dropdown-header">二级项目</li>
                     {^{props prop.option_1}}
-                        <li role="presentation"><a catagory_id="" role="menuitem" tabindex="-1" href="javascript:void(0)">{{>prop.name}}</a></li>
+                        <li role="presentation"><a catagory_id="{{>prop.id}}" role="menuitem" tabindex="-1" href="javascript:void(0)" >{^{:prop.name}}</a></li>
                     {{/props}}
                 </ul>
             </div>
             <div><span class="glyphicon glyphicon-chevron-right"></span></div>
             <div class="dropdown">
-                <div class='report_category_dropdown' data-toggle="dropdown">未选择</div>
+                <div class='report_category_dropdown' data-toggle="dropdown">{^{option_txt:prop.select_2.name}}</div>
                 <ul class="dropdown-menu dropdown-menu-right" role="menu" level="l2">
                     <li class="dropdown-header">三级项目</li>
                     {^{props prop.option_2}}
-                        <li role="presentation"><a catagory_id="" role="menuitem" tabindex="-1" href="javascript:void(0)">{{>prop.name}}</a></li>
+                        <li role="presentation"><a catagory_id="{{>prop.id}}" role="menuitem" tabindex="-1" href="javascript:void(0)">{{>prop.name}}</a></li>
                     {{/props}}
                 </ul>
             </div>
@@ -76,19 +77,40 @@
 </div>
 </script>
 
+{^{if ~isShow(items)}}
 <div class="report_submit" style="display: none">提交</div>
+{{/if}}
 <div style="height:1px; margin-top:20px;clear: both;overflow: hidden"></div>
 <script>
 require(["reportItem"], function(ReportController) {
     // console.log(ri);
     var report_controller = new ReportController();
     var app = {
-        reportItem: report_controller.items,
+        items: report_controller.items,
     };
     var myTemplate = $.templates("#addReportTmpl");  
 
     myTemplate.link(".panel", app);
 
+    $.views.converters("option_txt", function(val) {
+    
+        if(val==""||typeof(val)=="undefined"){
+            return "请选择";
+        }  else{
+            return val;
+        }
+
+    }); 
+    $.views.helpers({
+        isShow:function(items){
+            if(items.length>0){
+                return true
+            }else{
+                return false
+            }
+        }
+
+    });
     // report_controller.init()
     $("#add_report").click(function() {
         report_controller.addReportItem();
@@ -109,12 +131,14 @@ require(["reportItem"], function(ReportController) {
         var text = $(this).text();
         var level = $(this).closest("[level^=l]").attr("level").substring(1, 2)
         var id = $(this).attr("catagory_id");
+
         var item_key = $(this).closest(".report_item").attr("item");
-        $(this).closest("[level^=l]").prevAll(".report_category_dropdown").html(text);
+        // $(this).closest("[level^=l]").prevAll(".report_category_dropdown").html(text);
 
         report_controller.selectCatagory(item_key, level, id)
     })
 
     
 });
+
 </script>

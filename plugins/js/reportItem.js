@@ -1,15 +1,17 @@
-define(['jquery', "wangEditor","jsviews"], function($, E) {
+define(['jquery', "wangEditor","jsviews","jquery.bootstrap"], function($, E) {
 
 
 
-    function ReportItem(report_item_num) {
+    function ReportItem(report_item_num,pro_option_dic) {
         this.report_item_num = report_item_num;
         // this.item_dom = item_dom;
-        this.level = [" ", " ", " "];
+        this.select_0 = {};
+        this.select_1 = {};
+        this.select_2 = {};
         this.option_0=[];
         this.option_1=[];
         this.option_2=[];
-
+        this.pro_option_dic=pro_option_dic;
         this.editor_outcome = "";
         this.editor_problem = "";
         this.editor_plan = "";
@@ -24,7 +26,7 @@ define(['jquery', "wangEditor","jsviews"], function($, E) {
         ];
 
         this.init = function() {
-           
+            
             this.editor_outcome = new E("[item='" + this.report_item_num + "']  .report_menu_outcome",
                 ".panel [item='" + this.report_item_num + "'] .report_outcome")
             this.editor_problem = new E("[item='" + this.report_item_num + "']  .report_menu_problem",
@@ -43,6 +45,44 @@ define(['jquery', "wangEditor","jsviews"], function($, E) {
             this.editor_problem.create();
             this.editor_plan.create();
         }
+        this.setCatagory = function(item_key) {
+            option_0=[];
+            option_1=[];
+            option_2=[];
+            for (var c0 of this.pro_option_dic) {
+                var id = c0["id"];
+                var name = c0["name"];
+                option_0.push({name:name,id:id});
+                
+                if (this.select_0["id"] == c0.id) {
+                    $.observable(this.select_0).setProperty("name",name);
+                    for (var c1 of c0["sub"]) {
+                        var id = c1["id"];
+                        var name = c1["name"];
+                        option_1.push({name:name,id:id});
+                        if (this.select_1["id"] == c1.id) {
+                            $.observable(this.select_1).setProperty("name",name);
+                            for (var c2 of c1["sub"]) {
+                                var id = c2["id"];
+                                var name = c2["name"];
+                                option_2.push({name:name,id:id});
+                                if(this.select_2["id"] == c2.id){
+                                    $.observable(this.select_2).setProperty("name",name);
+                                }
+                            }
+                        }
+
+                    }
+                }
+
+            }
+            
+            $.observable(this).setProperty("option_0",option_0);
+            $.observable(this).setProperty("option_1",option_1);
+            $.observable(this).setProperty("option_2",option_2);
+           
+        }
+        this.setCatagory()
        
     }
 
@@ -51,7 +91,7 @@ define(['jquery', "wangEditor","jsviews"], function($, E) {
         this.report_item_num = 1;
         this.report_item_html = $("#report_item_demo").html();
 
-        this.entry_menu_dic = [{
+        this.pro_option_dic = [{
             "id": "1",
             "name": "经分组",
             "sub": [{
@@ -104,25 +144,45 @@ define(['jquery', "wangEditor","jsviews"], function($, E) {
                 var outcome = report_item.editor_outcome.txt.html();
                 var problem = report_item.editor_problem.txt.html();
                 var plan = report_item.editor_plan.txt.html();
-                console.log(outcome);
+                
             }
         }
 
         this.selectCatagory = function(item_key, level, id) {
 
             var level_n = parseInt(level);
-            if (this.item_record_dic[item_key].level[level_n] != id) { //检查有无变化，没变化就不进行操作
-                this.item_record_dic[item_key].level[level_n] = id;
+            if (this.items[item_key]["select_"+level_n]["id"] != id) { 
+                //检查有无变化，没变化就不进行操作
+                
+                //this.items[item_key]["select_"+level_n]={name:"tmp",id:id};
 
-                for (var i = level_n + 1; i < this.item_record_dic[item_key].level.length; i++) {
-                    this.item_record_dic[item_key].level[i] = " ";
-
-                    this.item_record_dic[item_key].item_dom.find("[level=l" + i + "]").prevAll(".report_category_dropdown").html("请选择");
+                $.observable(this.items[item_key]).setProperty("select_"+level+".id",id);
+                
+                //修改了项目选择，因为依赖关系把后面子项的都清空
+                for(var i=level_n+1;i<3;i++){
+                    
+                    $.observable(this.items[item_key]).setProperty("select_"+i+".id","");
+                    $.observable(this.items[item_key]).setProperty("select_"+i+".name","");
                 }
-                this.setCatagory(item_key);
-            }
-            //console.log(this.item_record_dic[item_key].level)
+                
 
+                this.items[item_key].setCatagory();
+                //observable 的重置必须不是原来的对象，否则会不生效，所以这里用拷贝
+                // var o0=[]
+                // var o1=[]
+                // var o2=[]
+                // $.extend(true,o0,this.items[item_key].option_0)
+                // $.extend(true,o1,this.items[item_key].option_1)
+                // $.extend(true,o2,this.items[item_key].option_2)
+                // console.log(this.items[item_key].option_1)
+                // $.observable(this.items[item_key]).setProperty("option_0",o0);
+                // $.observable(this.items[item_key]).setProperty("option_1",o1);
+                // $.observable(this.items[item_key]).setProperty("option_2",o2);
+            }
+            
+
+             
+             
         }
         this.setCatagory = function(item_key) {
 
@@ -175,9 +235,9 @@ define(['jquery', "wangEditor","jsviews"], function($, E) {
             // var new_item_dom = $(this.report_item_html).attr("item", this.report_item_num)
             // $("#add_report").before(new_item_dom);
 
-            var report_item = new ReportItem(this.report_item_num);
+            var report_item = new ReportItem(this.report_item_num,this.pro_option_dic);
             
-            
+            console.log(report_item)
             $.observable(this.items).setProperty(this.report_item_num+"",report_item);
             this.items[this.report_item_num+""].init();
 
@@ -241,6 +301,9 @@ define(['jquery', "wangEditor","jsviews"], function($, E) {
             $(this).removeClass("glyphicon-plus")
             $(this).addClass("glyphicon-minus")
         })
+
+        //选择项目菜单
+        
         
     })
     return ReportController;
