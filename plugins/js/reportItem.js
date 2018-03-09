@@ -89,7 +89,8 @@ define(['jquery', "wangEditor","jsviews","jquery.bootstrap"], function($, E) {
     function ReportController() {
         this.items = {};
         this.report_item_num = 1;
-        this.report_item_html = $("#report_item_demo").html();
+        
+        this.submitAbility=false
 
         this.pro_option_dic = [{
             "id": "1",
@@ -121,26 +122,52 @@ define(['jquery', "wangEditor","jsviews","jquery.bootstrap"], function($, E) {
                     ]
                 }
             ]
+        },{
+            "id": "8",
+            "name": "安全组",
+            "sub": [{
+                    "name": "扫描",
+                    "id": "9",
+                    "sub": [{
+                            "name": "dos漏洞",
+                            "id": "13"
+                        },
+                        {
+                            "name": "系统错误",
+                            "id": "14"
+                        }
+                    ]
+                },
+                {
+                    "name": "平台",
+                    "id": "15",
+                    "sub": [{
+                            "name": "安全大数据",
+                            "id": "16"
+                        },
+                        {
+                            "name": "安全平台建设",
+                            "id": "17"
+                        }
+                    ]
+                }
+            ]
         }];
 
 
-        this.submitAbility = function() { //是否显示submit按钮以及是否能够提交
+        this.SetSubmitAbility = function() { //是否显示submit按钮以及是否能够提交
             var ifNull = false;
-            for (var key in this.item_record_dic) {
+            for (var key in this.items) {
                 ifNull = true;
                 break;
             }
-            if (ifNull) {
-                this.submit_dom.show();
-                return true;
-            } else {
-                this.submit_dom.hide();
-                return false;
-            }
+            $.observable(this).setProperty("submitAbility",ifNull);
+            
+            return  ifNull;
         }
         this.submit = function() {
-            for (var key in this.item_record_dic) {
-                var report_item = this.item_record_dic[key];
+            for (var key in this.items) {
+                var report_item = this.items[key];
                 var outcome = report_item.editor_outcome.txt.html();
                 var problem = report_item.editor_problem.txt.html();
                 var plan = report_item.editor_plan.txt.html();
@@ -167,17 +194,7 @@ define(['jquery', "wangEditor","jsviews","jquery.bootstrap"], function($, E) {
                 
 
                 this.items[item_key].setCatagory();
-                //observable 的重置必须不是原来的对象，否则会不生效，所以这里用拷贝
-                // var o0=[]
-                // var o1=[]
-                // var o2=[]
-                // $.extend(true,o0,this.items[item_key].option_0)
-                // $.extend(true,o1,this.items[item_key].option_1)
-                // $.extend(true,o2,this.items[item_key].option_2)
-                // console.log(this.items[item_key].option_1)
-                // $.observable(this.items[item_key]).setProperty("option_0",o0);
-                // $.observable(this.items[item_key]).setProperty("option_1",o1);
-                // $.observable(this.items[item_key]).setProperty("option_2",o2);
+   
             }
             
 
@@ -228,6 +245,7 @@ define(['jquery', "wangEditor","jsviews","jquery.bootstrap"], function($, E) {
             // delete this.item_record_dic[item_key];
             // this.submitAbility(); //是否还能显示提交按钮
             $.observable(this.items).removeProperty(item_key+"");
+            this.SetSubmitAbility()
         }
         this.addReportItem = function() {
             console.log("add item")
@@ -240,7 +258,7 @@ define(['jquery', "wangEditor","jsviews","jquery.bootstrap"], function($, E) {
             console.log(report_item)
             $.observable(this.items).setProperty(this.report_item_num+"",report_item);
             this.items[this.report_item_num+""].init();
-
+            this.SetSubmitAbility()
 
         }
         this.change = function() {
@@ -290,7 +308,7 @@ define(['jquery', "wangEditor","jsviews","jquery.bootstrap"], function($, E) {
 
     $(document).ready(function() {
         $(document).on("click", ".report_item .glyphicon-minus", function() {
-            console.log(11111111111)
+            
             $(this).parents(".report_category").siblings(".report_content").slideUp()
             $(this).removeClass("glyphicon-minus")
             $(this).addClass("glyphicon-plus")
