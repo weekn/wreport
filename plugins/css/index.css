@@ -1,3 +1,22 @@
+a{
+    text-decoration: none;
+    color:inherit;
+}
+a:visited{
+    text-decoration: none;
+    color:inherit;
+}
+a:hover {
+    text-decoration: none;
+    color:inherit;
+}
+a:active{
+    text-decoration: none;
+}
+a:link {
+
+	text-decoration: none;
+}
 .top{
 	background-color:rgb(62,159,248);
 	/*height:50px;*/
@@ -39,7 +58,6 @@
 	line-height: 35px;
 	width:110%;
 	color:#FFF;
-	cursor:pointer;
 	/*float:left;*/
 	/*margin-left:10px;*/
 }
@@ -71,11 +89,13 @@
 	margin-top:72px;
 	width:100%;
 	max-width: 1235px;
-	/*height:500px;*/
 	border-radius:10px;
-	border:1px solid rgb(219,220,224);
+    border:1px solid rgb(219,220,224);
 
-	/*position: relative;*/
+}
+.panel_none{
+    background-color: transparent;
+    border:none;
 }
 .panel_small{
 	margin-top:102px;
@@ -169,6 +189,96 @@
 	background-color: rgb(62,159,248);
 	cursor:pointer;
 }
+
+
+.teamReport_0{
+    margin-top:30px;
+
+}
+.teamReport_0_top{
+    height: 40px;
+    line-height:40px;
+    padding-left: 15px;
+    font-size: 18px;
+    width:100%;
+    /*background-color: rgb(241,241,241);*/
+	background-color: rgb(219,220,224);
+	color:#000;
+    border-top-right-radius:10px;
+    border-top-left-radius:10px;
+    border:2px solid rgb(219,220,224);
+}
+.teamReport_0_content{
+    padding:15px;
+    border-bottom-right-radius:10px;
+    border-bottom-left-radius:10px;
+    background-color: white;
+    border:1px solid rgb(219,220,224);
+    border-top:none
+    /*background-color: green;*/
+}
+.teamReport_1{
+    width:97%;
+
+    float:right;
+    margin-top:10px;
+    margin-right:10px;
+    /*background-color: pink;*/
+}
+.teamReport_1_top{
+    height: 35px;
+    line-height: 35px;
+    font-size: 15px;
+    padding-left: 15px;
+    width:100%;
+    background-color: rgb(241,241,241);
+    border-top-right-radius:10px;
+    border-top-left-radius:10px;
+}
+.teamReport_1_content{
+    border-bottom-right-radius:10px;
+    border-bottom-left-radius:10px;
+    border:1px solid rgb(241,241,241);
+    padding:15px;
+}
+
+.teamReport_2{
+    width:97%;
+
+    float:right;
+    margin-top:10px;
+    margin-right:5px;
+    /*background-color: #1b6d85;*/
+}
+.teamReport_2_top{
+    height: 30px;
+    line-height: 30px;
+    padding-left: 15px;
+    width:100%;
+    background-color: rgb(241,241,241);
+    border-top-right-radius:10px;
+    border-top-left-radius:10px;
+}
+.teamReport_2_content{
+    border-bottom-right-radius:10px;
+    border-bottom-left-radius:10px;
+    border:1px solid rgb(241,241,241);
+    padding:15px;
+}
+.teamReport_content{
+    width:33%;
+    float: left;
+}
+
+.teamReport_content_top{
+    background-color: rgb(241,241,241);
+    text-align: center;
+    font-size: 10px;
+}
+.teamReport_content_content{
+    border:1px solid rgb(241,241,241);
+}
+
 @media screen  and  (max-width:970px){
 
 .report_category div{

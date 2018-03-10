@@ -1,5 +1,4 @@
 
-<script id="addReportTmpl" type="text/x-jsrender">
     <div class="report_top">
         <img style="border:1px solid rgb(219,220,224);width:38px;height:38px;padding:2px;border-radius:8px;background-color: #FFF;margin-bottom: 2px" src="plugins/img/user.png" />
         <span style="color:#000;margin-left:5px">weekn</span>
@@ -80,59 +79,4 @@
     <div class="report_submit" >提交</div>
 {{/if}}
 <div style="height:1px; margin-top:20px;clear: both;overflow: hidden"></div>
-</script>
 
-<script>
-require(["reportItem"], function(ReportController) {
-    // console.log(ri);
-    var report_controller = new ReportController();
-    var app = {
-        controller: report_controller
-    };
-    var myTemplate = $.templates("#addReportTmpl"); 
-     
-    $.views.converters("option_txt", function(val) {
-        
-        if(val==""||typeof(val)=="undefined"){
-            return "请选择";
-        }  else{
-            return val;
-        }
-
-    });
-   
-    myTemplate.link(".panel", app);
-
-     
-    
-    // report_controller.init()
-    $("#add_report").click(function() {
-        report_controller.addReportItem();
-
-    })
-    $(".report_submit").click(function() {
-        report_controller.submit();
-    })
-    $(document).on('click', "[name='report_item_remove']", function() {
-
-        var item = $(this).closest(".report_item").attr("item");
-        report_controller.removeReportItem(item);
-        //$(this).before(report_item) ;
-    })
-
-    $(document).on("click", "[level^=l] [role=menuitem]", function() {
-        //点击周报项目选择项目选项
-        var text = $(this).text();
-        var level = $(this).closest("[level^=l]").attr("level").substring(1, 2)
-        var id = $(this).attr("catagory_id");
-
-        var item_key = $(this).closest(".report_item").attr("item");
-        // $(this).closest("[level^=l]").prevAll(".report_category_dropdown").html(text);
-
-        report_controller.selectCatagory(item_key, level, id)
-    })
-
-    
-});
-
-</script>

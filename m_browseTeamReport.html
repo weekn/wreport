@@ -1,0 +1,66 @@
+
+
+
+{^{for allreport}}
+<div class="teamReport_0" pro_id="{{>id}}">
+    <div class="teamReport_0_top" >
+        {^{:name}}
+    </div>
+    <div class="teamReport_0_content">
+        {^{for sub}}
+        <div class="teamReport_1" pro_id="{{>id}}">
+            <div class="teamReport_1_top">
+                {^{:name}}
+            </div>
+            <div class="teamReport_1_content">
+                {^{for sub}}
+                <div class="teamReport_2" pro_id="{{>id}}">
+                    <div class="teamReport_2_top">
+                        {^{:name}}
+                    </div>
+                    <div class="teamReport_2_content">
+
+                        <div class="teamReport_content">
+                            <div class="teamReport_content_top" >
+                                本周完成
+                            </div>
+                            <div class="teamReport_content_content" report_cata="outcome">
+                                {^{:report.outcome}}
+                            </div>
+                        </div>
+                        <div class="teamReport_content">
+                            <div class="teamReport_content_top">
+                                存在问题
+                            </div>
+                            <div class="teamReport_content_content" report_cata="problem">
+                                {^{:report.problem}}
+                            </div>
+                        </div>
+                        <div class="teamReport_content">
+                            <div class="teamReport_content_top">
+                                下周计划
+                            </div>
+                            <div class="teamReport_content_content" report_cata="plan">
+                                {^{:report.plan}}
+                            </div>
+                        </div>
+                        <div style="height:1px; margin-top:20px;clear: both;overflow: hidden"></div>
+                    </div>
+                </div>
+
+                {{/for}}
+                <div style="height:1px; margin-top:20px;clear: both;overflow: hidden"></div>
+
+            </div>
+        </div>
+        {{/for}}
+        <div style="height:1px; margin-top:20px;clear: both;overflow: hidden"></div>
+    </div>
+
+</div>
+    {{/for}}
+
+
+
+
+
