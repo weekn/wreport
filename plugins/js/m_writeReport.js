@@ -1,5 +1,5 @@
 define(['jquery', "wangEditor", "jsviews", "jquery.bootstrap"], function ($, E) {
-    // console.log(_jsv)
+    var get_report_path="data/user_report.json";
 
 
     function ReportItem(report_item_num, pro_option_dic) {
@@ -84,7 +84,7 @@ define(['jquery', "wangEditor", "jsviews", "jquery.bootstrap"], function ($, E) 
             $.observable(this).setProperty("option_1", option_1);
             $.observable(this).setProperty("option_2", option_2);
 
-        }
+        };
         this.setCatagory()
 
     }
@@ -225,13 +225,49 @@ define(['jquery', "wangEditor", "jsviews", "jquery.bootstrap"], function ($, E) 
             this.SetSubmitAbility()
 
         };
+        this.getReport=function(){
 
+            var that=this;
+            function buildItem(select,report){
+                that.report_item_num = that.report_item_num + 1;
+                // var new_item_dom = $(this.report_item_html).attr("item", this.report_item_num)
+                // $("#add_report").before(new_item_dom);
+
+                var report_item = new ReportItem(that.report_item_num, that.pro_option_dic);
+                report_item.select_0 = select[0];
+                report_item.select_1 = select[1];
+                report_item.select_2 = select[2];
+                $.observable(that.items).setProperty(that.report_item_num + "", report_item);
+                that.items[that.report_item_num + ""].init();
+                that.SetSubmitAbility()
+            }
+            $.get(get_report_path,function(json){
+                $.observable(that).setProperty("items",{});
+                that.report_item_num=0;
+                for(var i_0 in json){
+                    var c_0=json[i_0];
+
+                    for(var i_1 in c_0["sub"]){
+                        var c_1=c_0["sub"][i_1];
+                        for(var i_2 in c_1["sub"]){
+                            var c_2=c_1["sub"][i_2];
+                            var report=c_2["report"];
+                            var select=[{name:c_0["name"],id:c_0["id"]},{name:c_1["name"],id:c_1["id"]},{name:c_2["name"],id:c_2["id"]}];
+                            buildItem(select,report);
+                        }
+                    }
+                }
+
+
+
+            });
+        };
         this.init = function (templ) {
             var that=this;
             var app = {
                 controller: this
             };
-            var myTemplate = $.templates(templ)
+            var myTemplate = $.templates(templ);
 
 
             $.views.converters("option_txt", function (val) {
@@ -244,10 +280,16 @@ define(['jquery', "wangEditor", "jsviews", "jquery.bootstrap"], function ($, E) 
 
             });
 
-            myTemplate.link(".panel [moudule=m_writeReport]", app)
+            var helpers = {
+                doSomething: function(e) {
+                    console.log(e);
+                }
+            };
+            myTemplate.link(".panel [moudule=m_writeReport]", app,helpers)
                 .on("click", "#add_report", function () {
                     that.addReportItem();
-                }).on("click", "[level^=l] [role=menuitem]", function () {
+                })
+                .on("click", "[level^=l] [role=menuitem]", function () {
                 //点击周报项目选择项目选项
                 var text = $(this).text();
                 var level = $(this).closest("[level^=l]").attr("level").substring(1, 2)
@@ -256,7 +298,8 @@ define(['jquery', "wangEditor", "jsviews", "jquery.bootstrap"], function ($, E) 
                 var item_key = $(this).closest(".report_item").attr("item");
 
                 that.selectCatagory(item_key, level, id)
-            }).on('click', "[name='report_item_remove']", function () {
+            })
+                .on('click', "[name='report_item_remove']", function () {
                 //删除项
                 var item = $(this).closest(".report_item").attr("item");
                 that.removeReportItem(item);

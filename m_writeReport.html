@@ -12,7 +12,9 @@
                 <ul class="dropdown-menu" role="menu" level="l0">
                     <li class="dropdown-header">一级项目</li>
                     {^{props prop.option_0}}
+
                         <li role="presentation"><a catagory_id="{{>prop.id}}" role="menuitem" tabindex="-1" href="javascript:void(0)" >{^{:prop.name}}</a></li>
+
                     {{/props}}
                 </ul>
             </div>
@@ -32,7 +34,9 @@
                 <ul class="dropdown-menu dropdown-menu-right" role="menu" level="l2">
                     <li class="dropdown-header">三级项目</li>
                     {^{props prop.option_2}}
+
                         <li role="presentation"><a catagory_id="{{>prop.id}}" role="menuitem" tabindex="-1" href="javascript:void(0)">{{>prop.name}}</a></li>
+
                     {{/props}}
                 </ul>
             </div>

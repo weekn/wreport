@@ -7,6 +7,7 @@ require.config({
         "jsviews":"jsview/jsviews.min",
         "index":"js/index",
         "wangEditor":"wangEditor-3.0.16/release/wangEditor.min",
+        "m_login":"js/m_login",
         "m_browseTeamReport":"js/m_browseTeamReport",
         "m_writeReport":"js/m_writeReport"
         
@@ -32,15 +33,16 @@ require(["jquery","director","index","jsviews"],function($,Router){
 
      var myReport =function(){
 
-         console.log("myReport");
+
         if(moudule_loaded["m_writeReport"]!=true){
             console.log("myReport");
             $.get("m_writeReport.html", function(data) {
                 require(["m_writeReport"],function(M){
 
 
-                    var m=new M(data);
-                    m.init(data);
+                    var mouduel=new M(data);
+                    mouduel.init(data);
+                    mouduel.getReport();
 
 
                 })
@@ -54,20 +56,20 @@ require(["jquery","director","index","jsviews"],function($,Router){
         }
 
     };
-    var after=function(){
+    var login=function(){
 
     };
     var browseTeamReport=function (){
 
         if(moudule_loaded["m_browseTeamReport"]!=true){
 
-            $.get("m_browseTeamReport.html", function(data) {
+            $.get("m_browseTeamReport2.html", function(tmpl) {
 
                 require(["m_browseTeamReport"],function(B){
 
 
-                    var b=new B(data);
-                    b.init();
+                    var b=new B();
+                    b.init(tmpl);
                 })
 
                 //
@@ -79,6 +81,30 @@ require(["jquery","director","index","jsviews"],function($,Router){
 
     };
     var routes = {
+        "/login":{
+            on:function(){
+
+                $("[moudule=m_login]").show();
+                if(moudule_loaded["m_login"]!=true){
+
+                    $.get("m_login.html", function(tmpl) {
+
+                        require(["m_login"],function(B){
+
+
+                            var b=new B();
+                            b.init(tmpl);
+                        })
+
+                        //
+                    });
+                    moudule_loaded["m_login"]=true;
+                }
+            },
+            after:function(){
+                $("[moudule=m_login]").hide();
+            }
+        },
         '/browseTeamReport': {
             on: browseTeamReport,
             after:function(){

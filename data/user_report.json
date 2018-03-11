@@ -1,0 +1,101 @@
+[{
+  "id": "1",
+  "name": "经分组",
+  "sub": [{
+    "name": "经分五期建设",
+    "id": "2",
+    "sub": [{
+      "name": "接口改造",
+      "id": "3",
+      "report":{
+        "outcome":"1.睡觉",
+        "problem":"无",
+        "plan":"继续睡觉"
+      }
+    },
+      {
+        "name": "hadoop移植",
+        "id": "4",
+        "report":{
+          "outcome":"1.睡觉",
+          "problem":"无",
+          "plan":"继续睡觉"
+        }
+      }
+    ]
+  },
+    {
+      "name": "经分四期维护",
+      "id": "5",
+      "sub": [{
+        "name": "日常维护",
+        "id": "6",
+        "report":{
+          "outcome":"1.睡觉",
+          "problem":"无",
+          "plan":"继续睡觉"
+        }
+      },
+        {
+          "name": "gbase扩容",
+          "id": "7",
+          "report":{
+            "outcome":"1.睡觉",
+            "problem":"无",
+            "plan":"继续睡觉"
+          }
+        }
+      ]
+    }
+  ]
+},{
+  "id": "8",
+  "name": "安全组",
+  "sub": [{
+    "name": "扫描",
+    "id": "9",
+    "sub": [{
+      "name": "dos漏洞",
+      "id": "13",
+      "report":{
+        "outcome":"1.睡觉",
+        "problem":"无",
+        "plan":"继续睡觉"
+      }
+    },
+      {
+        "name": "系统错误",
+        "id": "14",
+        "report":{
+          "outcome":"1.睡觉",
+          "problem":"无",
+          "plan":"继续睡觉"
+        }
+      }
+    ]
+  },
+    {
+      "name": "平台",
+      "id": "15",
+      "sub": [{
+        "name": "安全大数据",
+        "id": "16",
+        "report":{
+          "outcome":"1.睡觉",
+          "problem":"无",
+          "plan":"继续睡觉"
+        }
+      },
+        {
+          "name": "安全平台建设",
+          "id": "17",
+          "report":{
+            "outcome":"1.睡觉",
+            "problem":"无",
+            "plan":"继续睡觉"
+          }
+        }
+      ]
+    }
+  ]
+}]
