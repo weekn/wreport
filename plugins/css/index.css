@@ -17,6 +17,27 @@ a:link {
 
 	text-decoration: none;
 }
+flow_lock{
+	overflow: hidden;
+	touch-action: none;
+	margin-right: 17px;
+}
+
+/*.lock {*/
+    /*overflow: hidden;*/
+    /*touch-action: none;*/
+/*}*/
+
+/*.lock body {*/
+    /*overflow: hidden;*/
+    /*touch-action: none;*/
+    /*margin-right: 17px;*/
+/*}*/
+
+/*.lock.mobile body {*/
+    /*margin-right: 0;*/
+/*}*/
+
 .login{
     position: absolute;
     background-color: white;

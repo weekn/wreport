@@ -110,8 +110,71 @@
     .teamReport_content_content div{
         overflow-y: hidden;
     }
+
+    .teamReportDetail{
+        position: absolute;
+        width: 700px;
+        top:0;
+        left:10%;
+        border: 2px solid rgb(62,159,248);
+        z-index: 100;
+        display: none;
+
+    }
+    .teamReportDetail_back{
+        float:left;
+        background-color: transparent;
+        border: none;
+        font-size: 20px;
+        font-weight: bold
+    }
+    .teamReportDetail_top{
+
+        width:100%;
+        margin:0 auto;
+        height: 40px;
+        line-height: 40px;
+        color:white;
+        background-color: rgb(62,159,248);
+    }
+    .teamReportDetail_top_div{
+
+        width:33%;
+        height:40px;
+        line-height: 40px;
+        text-align: center;
+        float: left;
+    }
+    .teamReportDetail_editor{
+        widht:90%;
+        height: 400px;
+        margin:0 auto;
+        background-color: white;
+    }
 </style>
 
+<div class="teamReportDetail" data-link="css-top{:reportDetail.top} css-left{:reportDetail.left}">
+
+        <div class="teamReportDetail_top">
+            <button class="teamReportDetail_back"><</button>
+            <div style="margin: 0 auto;background-color: green;width:70%">
+                <div class="teamReportDetail_top_div">
+                    xxxx
+                </div>
+                <div class="teamReportDetail_top_div">
+                    xxxx
+                </div>
+                <div class="teamReportDetail_top_div">
+                    xxxx
+                </div>
+            </div>
+
+        </div>
+        <div class="teamReportDetail_editor"></div>
+    <div style="height:1px; margin-top:0px;clear: both;overflow: hidden"></div>
+
+
+</div>
 
 {^{for allreport}}
 <div class="teamReport_0" pro_id="{{>id}}">
@@ -130,7 +193,7 @@
                     <div class="teamReport_2_top">
                         {^{:name}}
                     </div>
-                    <div class="teamReport_2_content">
+                    <div class="teamReport_2_content" >
 
                         <div class="teamReport_content">
                             <div class="teamReport_content_top" >
