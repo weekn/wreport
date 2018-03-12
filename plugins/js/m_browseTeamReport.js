@@ -1,11 +1,13 @@
-define(['jquery', "wangEditor","jsviews","jquery.bootstrap"], function($, E) {
+define(['jquery', "wangEditor","jquery.ui.tab","jsviews","jquery.bootstrap"], function($, E) {
     var get_data_path="data/user_report.json";
     var editor_record_dic={};
+
     function ReportItem(name,id,report){
         this.name="";
         this.id="";
         this.report="";
         this.cata="";
+        this.title="ddd";
         this.editor_outcome="";
         this.editor_problem="";
         this.editor_plan="";
@@ -13,35 +15,71 @@ define(['jquery', "wangEditor","jsviews","jquery.bootstrap"], function($, E) {
     }
     function ReportDetail(){
         this.top="11px";
-        this.left="100px";
         this.editor="null";
-        this.open=function(editor){
-            var window_width = $(window).width();
-            var window_height = $(window).height();
-            var w=$(".teamReportDetail").width();
-            var height=$(".teamReportDetail").height();
+
+        this.open=function(report_id,title){
+            var that=this;
 
 
-            var res_height=(window_height-height)/2;
-            if(res_height<0){
-                res_height=0;
+            function divformat(){
+                $("#teamReportDetail_alert_panel").show();//放前面才能获取正确宽度。高度
+                $(document.body).css({//先取消滚动条
+
+                    "overflow-y":"hidden"
+                });
+                if($(window).width()<970){
+                    $(".teamReportDetail").width($(window).width()-8);
+                    $(".teamReportDetail").height($(window).height()-8);
+                }
+
+                var window_height = $(window).height();
+                var height=$(".teamReportDetail").height();
+
+                $("#teamReportDetail_alert_panel").width($(window).width());
+                $("#teamReportDetail_alert_panel").height($(document).height());
+
+                var res_height=(window_height-height)/2;
+                if(res_height<0){
+                    res_height=0;
+                }
+
+
+                // console.log($(window).width(),$(".teamReportDetail").width())
+                $.observable(that).setProperty("top",res_height+$(document).scrollTop());
+
+                if(that.editor=="null"){
+                    that.editor=new E(".teamReportDetail_editor");
+                    that.editor.customConfig.menus = [
+                        'bold',
+                        'italic',
+                        'underline',
+                        'foreColor', // 文字颜色
+                        'backColor', // 背景颜色
+                        'list' // 列表
+                    ];
+                    that.editor.create();
+
+                }
             }
 
+            divformat();
+            console.log(title)
+            $.observable(that).setProperty("title",title);
 
-            $.observable(this).setProperty("left",(window_width-w)/2+"px");
-            $.observable(this).setProperty("top",res_height+$(document).scrollTop());
+            that.editor.txt.html(editor_record_dic[report_id]["outcome"].txt.html())
 
-            if(this.editor=="null"){
-                this.editor=new E(".teamReportDetail_editor");
-                this.editor.create();
-            }
-            $(".teamReportDetail").show();
-            $("body,html").addClass("flow_lock");
-            $("body").on("touchmove",function(event){        event.preventDefault;    }, false)
-        }
+
+
+
+
+        };
         this.close=function(){
-            $(".teamReportDetail").hide();
-            $("body,html").removeClass("flow_lock");
+            $("#teamReportDetail_alert_panel").hide();
+            //启用滚动条
+            $(document.body).css({
+
+                "overflow-y":"auto"
+            });
         }
     }
     function BrowseTeamReport_m(){
@@ -65,15 +103,21 @@ define(['jquery', "wangEditor","jsviews","jquery.bootstrap"], function($, E) {
 
 
                 $.observable(that.reports).refresh(json);
-                editor_record_dic={}//clean
+                editor_record_dic={};//clean
                 $(".teamReport_content_content").each(function(i){
                     //遍历建立所有editor
-                    var pro_id=$(this).closest("[pro_id]").attr("pro_id");
-                    editor_record_dic[pro_id]= new E("",this);
-                    editor_record_dic[pro_id].customConfig.zIndex = 0;
-                    editor_record_dic[pro_id].create();
-                    editor_record_dic[pro_id].$textElem.attr('contenteditable', false);
-                })
+                    var report_id=$(this).closest("[report_id]").attr("report_id");
+
+                    var cata=$(this).closest("[report_cata]").attr("report_cata");
+
+                    if(!editor_record_dic.hasOwnProperty(report_id)){
+                        editor_record_dic[report_id]={};
+                    }
+                    editor_record_dic[report_id][cata]= new E("",this);
+                    editor_record_dic[report_id][cata].customConfig.zIndex = 0;
+                    editor_record_dic[report_id][cata].create();
+                    editor_record_dic[report_id][cata].$textElem.attr('contenteditable', false);
+                });
                 $("html,body").animate({scrollTop:0},0);//回顶端
                 // document.querySelector("html").classList.add("lock");
                 // window.addEventListener("mousewheel", this.forbidScroll);
@@ -128,15 +172,19 @@ define(['jquery', "wangEditor","jsviews","jquery.bootstrap"], function($, E) {
 
                 })
                 .on("dblclick",".teamReport_content_content",function(){
-                    var id=$(this).closest("[pro_id]").attr("pro_id");
-                    that.reportDetail.open();
-
-
+                    var title=$(this).closest("[pro_id]").find("[title]").attr("title");
+                    var report_id=$(this).closest("[report_id]").attr("report_id");
+                    console.log($(this).closest("[title]"))
+                    console.log(title)
+                    that.reportDetail.open(report_id,title);
+                    $( "#tabs" ).tabs({
+                        // collapsible: true
+                    });
 
                 })
                 .on("click",".teamReportDetail_back",function(){
                     that.reportDetail.close();
-                })
+                });
 
             //初始化编辑器
 

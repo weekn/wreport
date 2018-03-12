@@ -1,202 +1,282 @@
 <style>
-    .teamReport_0{
-        margin-top:30px;
+    .teamReport_0 {
+        margin-top: 30px;
 
     }
-    .teamReport_0_top{
+
+    .teamReport_0_top {
         height: 40px;
-        line-height:40px;
+        line-height: 40px;
         padding-left: 15px;
         font-size: 18px;
-        width:100%;
+        width: 100%;
         /*background-color: rgb(241,241,241);*/
         background-color: #FFF;
         /*background-color: rgb(62,159,248);*/
-        color:#000;
+        color: #000;
         /*color:white;*/
-        border-top-right-radius:10px;
-        border-top-left-radius:10px;
-        border-top:1px solid rgb(219,220,224);
-        border-left:1px solid rgb(219,220,224);
-        border-right:1px solid rgb(219,220,224);
-        cursor:pointer;
+        border-top-right-radius: 10px;
+        border-top-left-radius: 10px;
+        border-top: 1px solid rgb(219, 220, 224);
+        border-left: 1px solid rgb(219, 220, 224);
+        border-right: 1px solid rgb(219, 220, 224);
+        cursor: pointer;
     }
-    .teamReport_0_top_hide{
-        border-bottom:1px solid rgb(219,220,224);
-    }
-    .teamReport_0_content{
 
-        border-bottom-right-radius:10px;
-        border-bottom-left-radius:10px;
+    .teamReport_0_top_hide {
+        border-bottom: 1px solid rgb(219, 220, 224);
+    }
+
+    .teamReport_0_content {
+
+        border-bottom-right-radius: 10px;
+        border-bottom-left-radius: 10px;
         background-color: white;
-        border:1px solid rgb(219,220,224);
-        border-top:none
+        border: 1px solid rgb(219, 220, 224);
+        border-top: none
         /*background-color: green;*/
     }
-    .teamReport_1{
-        width:97%;
 
-        float:right;
-        margin-top:10px;
-        margin-right:10px;
+    .teamReport_1 {
+        width: 97%;
+
+        float: right;
+        margin-top: 10px;
+        margin-right: 10px;
         /*background-color: pink;*/
     }
-    .teamReport_1_top{
+
+    .teamReport_1_top {
         height: 35px;
         line-height: 35px;
         font-size: 15px;
         padding-left: 15px;
-        width:100%;
+        width: 100%;
         background-color: #FFF;
-        border-top-right-radius:10px;
-        border-top-left-radius:10px;
-        border-top:1px solid rgb(219,220,224);
-        border-left:1px solid rgb(219,220,224);
-        border-right:1px solid rgb(219,220,224);
-        cursor:pointer;
-    }
-    .teamReport_1_content{
-        border-bottom-right-radius:10px;
-        border-bottom-left-radius:10px;
-        border:1px solid rgb(241,241,241);
-        border-top:none;
-
+        border-top-right-radius: 10px;
+        border-top-left-radius: 10px;
+        border-top: 1px solid rgb(219, 220, 224);
+        border-left: 1px solid rgb(219, 220, 224);
+        border-right: 1px solid rgb(219, 220, 224);
+        cursor: pointer;
     }
 
-    .teamReport_2{
-        width:97%;
+    .teamReport_1_content {
+        border-bottom-right-radius: 10px;
+        border-bottom-left-radius: 10px;
+        border: 1px solid rgb(241, 241, 241);
+        border-top: none;
 
-        float:right;
-        margin-top:10px;
-        margin-right:5px;
+    }
+
+    .teamReport_2 {
+        width: 97%;
+
+        float: right;
+        margin-top: 10px;
+        margin-right: 5px;
         /*background-color: #1b6d85;*/
     }
-    .teamReport_2_top{
+
+    .teamReport_2_top {
         height: 30px;
         line-height: 30px;
         padding-left: 15px;
-        width:100%;
+        width: 100%;
         background-color: #FFF;
-        border-top-right-radius:10px;
-        border-top-left-radius:10px;
-        border-top:1px solid rgb(219,220,224);
-        border-left:1px solid rgb(219,220,224);
-        border-right:1px solid rgb(219,220,224);
-        cursor:pointer;
+        border-top-right-radius: 10px;
+        border-top-left-radius: 10px;
+        border-top: 1px solid rgb(219, 220, 224);
+        border-left: 1px solid rgb(219, 220, 224);
+        border-right: 1px solid rgb(219, 220, 224);
+        cursor: pointer;
     }
-    .teamReport_2_content{
-        border-bottom-right-radius:10px;
-        border-bottom-left-radius:10px;
-        border:1px solid rgb(241,241,241);
-        border-top:none;
-        padding:15px;
+
+    .teamReport_2_content {
+        border-bottom-right-radius: 10px;
+        border-bottom-left-radius: 10px;
+        border: 1px solid rgb(241, 241, 241);
+        border-top: none;
+        padding: 15px;
     }
-    .teamReport_content{
-        width:33%;
+
+    .teamReport_content {
+        width: 33%;
         float: left;
     }
 
-    .teamReport_content_top{
-        background-color:white;
+    .teamReport_content_top {
+        background-color: white;
         text-align: center;
         font-size: 12px;
-        color:black;
+        color: black;
     }
-    .teamReport_content_content{
-        border-left:2px solid rgb(241,241,241);
-        padding-left:5px;
+
+    .teamReport_content_content {
+        border-left: 2px solid rgb(241, 241, 241);
+        padding-left: 5px;
         height: 100px;
     }
-    .teamReport_content_content div{
+
+    .teamReport_content_content div {
         overflow-y: hidden;
     }
 
-    .teamReportDetail{
-        position: absolute;
+    .teamReportDetail {
+
         width: 700px;
-        top:0;
-        left:10%;
-        border: 2px solid rgb(62,159,248);
-        z-index: 100;
-        display: none;
+        margin: 0 auto;
+        border: 2px solid rgb(62, 159, 248);
+
+        /*display: none;*/
 
     }
-    .teamReportDetail_back{
-        float:left;
+
+    .teamReportDetail_back {
+        float: left;
         background-color: transparent;
         border: none;
-        font-size: 20px;
-        font-weight: bold
-    }
-    .teamReportDetail_top{
+        font-size: 12px;
 
-        width:100%;
-        margin:0 auto;
+    }
+
+    .teamReportDetail_top {
+
+        width: 100%;
+        margin: 0 auto;
         height: 40px;
         line-height: 40px;
-        color:white;
-        background-color: rgb(62,159,248);
+        color: white;
+        background-color: rgb(62, 159, 248);
     }
-    .teamReportDetail_top_div{
 
-        width:33%;
-        height:40px;
+    .teamReportDetail_top_div {
+
+        width: 33%;
+        height: 40px;
         line-height: 40px;
         text-align: center;
         float: left;
     }
-    .teamReportDetail_editor{
-        widht:90%;
+
+    .teamReportDetail_editor {
+        widht: 90%;
         height: 400px;
-        margin:0 auto;
+        margin: 0 auto;
         background-color: white;
     }
-</style>
 
-<div class="teamReportDetail" data-link="css-top{:reportDetail.top} css-left{:reportDetail.left}">
+
+</style>
+<div id="tabs">
+    <ul>
+        <li><a href="#tabs-1">Nunc tincidunt</a></li>
+        <li><a href="#tabs-2">Proin dolor</a></li>
+        <li><a href="#tabs-3">Aenean lacinia</a></li>
+    </ul>
+    <div id="tabs-1">
+        <p><strong>Click this tab again to close the content pane.</strong></p>
+        <p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
+    </div>
+    <div id="tabs-2">
+        <p><strong>Click this tab again to close the content pane.</strong></p>
+        <p>Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut pharetra massa metus id nunc. Duis scelerisque molestie turpis. Sed fringilla, massa eget luctus malesuada, metus eros molestie lectus, ut tempus eros massa ut dolor. Aenean aliquet fringilla sem. Suspendisse sed ligula in ligula suscipit aliquam. Praesent in eros vestibulum mi adipiscing adipiscing. Morbi facilisis. Curabitur ornare consequat nunc. Aenean vel metus. Ut posuere viverra nulla. Aliquam erat volutpat. Pellentesque convallis. Maecenas feugiat, tellus pellentesque pretium posuere, felis lorem euismod felis, eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.</p>
+    </div>
+    <div id="tabs-3">
+        <p><strong>Click this tab again to close the content pane.</strong></p>
+        <p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at, semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra justo vitae neque. Praesent blandit adipiscing velit. Suspendisse potenti. Donec mattis, pede vel pharetra blandit, magna ligula faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque. Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean vehicula velit eu tellus interdum rutrum. Maecenas commodo. Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus hendrerit hendrerit.</p>
+    </div>
+</div>
+<div id="teamReportDetail_alert_panel"
+     style="background-color: rgba(247,247,247,0.5);position: absolute;top:0;left:0;z-index: 100;display: none">
+    <div class="teamReportDetail" data-link="css-margin-top{:reportDetail.top} ">
 
         <div class="teamReportDetail_top">
-            <button class="teamReportDetail_back"><</button>
-            <div style="margin: 0 auto;background-color: green;width:70%">
-                <div class="teamReportDetail_top_div">
-                    xxxx
-                </div>
-                <div class="teamReportDetail_top_div">
-                    xxxx
-                </div>
-                <div class="teamReportDetail_top_div">
-                    xxxx
-                </div>
+            <button class="teamReportDetail_back">后退</button>
+
+            <div style="margin: 0 auto;width:70%;text-align: center">
+                {^{:reportDetail.title}}
+
+                <!--<div class="teamReportDetail_top_div">-->
+                    <!--xxxx-->
+                <!--</div>-->
+                <!--<div class="teamReportDetail_top_div">-->
+                    <!--xxxx-->
+                <!--</div>-->
+                <!--<div class="teamReportDetail_top_div">-->
+                    <!--xxxx-->
+                <!--</div>-->
             </div>
 
         </div>
         <div class="teamReportDetail_editor"></div>
-    <div style="height:1px; margin-top:0px;clear: both;overflow: hidden"></div>
+        <div style="height:1px; margin-top:0px;clear: both;overflow: hidden"></div>
 
 
+    </div>
 </div>
-
 {^{for allreport}}
 <div class="teamReport_0" pro_id="{{>id}}">
-    <div class="teamReport_0_top" >
-       {^{:name}}
+    <div class="teamReport_0_top">
+        {^{:name}}
     </div>
     <div class="teamReport_0_content">
         {^{for sub}}
+        {^{if report}}
+        <div class="teamReport_1" pro_id="{{>id}}">
+            <div class="teamReport_1_top" title="{{>#parent.parent.parent.data.name}}-{{>name}}">
+                {^{:name}}
+            </div>
+            <div class="teamReport_1_content">
+
+                    <div report_id="{{>report.report_id}}">
+                    <div class="teamReport_content">
+
+                        <div class="teamReport_content_top">
+                            本周完成
+                        </div>
+                        <div class="teamReport_content_content" report_cata="outcome" style="border-left: none">
+                            {^{:report.outcome}}
+                        </div>
+                    </div>
+                    <div class="teamReport_content">
+                        <div class="teamReport_content_top">
+                            存在问题
+                        </div>
+                        <div class="teamReport_content_content" report_cata="problem">
+                            {^{:report.problem}}
+                        </div>
+                    </div>
+                    <div class="teamReport_content">
+                        <div class="teamReport_content_top">
+                            下周计划
+                        </div>
+                        <div class="teamReport_content_content" report_cata="plan">
+                            {^{:report.plan}}
+                        </div>
+                    </div>
+                    </div>
+                    <div style="height:1px; margin-top:20px;clear: both;overflow: hidden"></div>
+
+            </div>
+        </div>
+
+        {{else}}
+
         <div class="teamReport_1" pro_id="{{>id}}">
             <div class="teamReport_1_top">
                 {^{:name}}
             </div>
             <div class="teamReport_1_content">
                 {^{for sub}}
-                <div class="teamReport_2" pro_id="{{>id}}">
-                    <div class="teamReport_2_top">
+                <div class="teamReport_2"  pro_id="{{>id}}">
+                    <div class="teamReport_2_top" title="{{>#parent.parent.parent.parent.parent.data.name}}-{{>#parent.parent.parent.data.name}}-{{>name}}">
                         {^{:name}}
                     </div>
-                    <div class="teamReport_2_content" >
-
-                        <div class="teamReport_content">
-                            <div class="teamReport_content_top" >
+                    <div class="teamReport_2_content">
+                        <div report_id="{{>report.report_id}}">
+                        <div class="teamReport_content" >
+                            <div class="teamReport_content_top">
                                 本周完成
                             </div>
                             <div class="teamReport_content_content" report_cata="outcome" style="border-left: none">
@@ -219,21 +299,26 @@
                                 {^{:report.plan}}
                             </div>
                         </div>
+                        </div>
                         <div style="height:1px; margin-top:20px;clear: both;overflow: hidden"></div>
                     </div>
                 </div>
-
                 {{/for}}
                 <div style="height:1px; margin-top:20px;clear: both;overflow: hidden"></div>
 
             </div>
         </div>
+
+        {{/if}}
+
+
         {{/for}}
         <div style="height:1px; margin-top:20px;clear: both;overflow: hidden"></div>
+        <div style="height:1px; margin-top:10px;clear: both;overflow: hidden"></div>
     </div>
 
 </div>
-    {{/for}}
+{{/for}}
 
 
 

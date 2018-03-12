@@ -3,6 +3,15 @@ require.config({
     paths : {
         "jquery" : "js/jquery-3.3.1.min",
         "jquery.bootstrap":"bootstrap-3.3.7-dist/js/bootstrap.min",
+        "jquery.ui.tab":"jquery-ui-1.12.1/ui/widgets/tabs",
+
+        "escape-selector":"jquery-ui-1.12.1/ui/escape-selector",
+        "keycode":"jquery-ui-1.12.1/ui/keycode",
+        "safe-active-element":"jquery-ui-1.12.1/ui/safe-active-element",
+        "unique-id":"jquery-ui-1.12.1/ui/unique-id",
+        "version":"jquery-ui-1.12.1/ui/version",
+        "widget":"jquery-ui-1.12.1/ui/widget",
+
         "director":"js/director.min",
         "jsviews":"jsview/jsviews.min",
         "index":"js/index",
@@ -23,7 +32,9 @@ require.config({
     }
 });
 
-
+// require(["jquery-ui-1.12.1/ui/widgets/autocomplete"],function(autocomplete ){
+//     console.log(autocomplete )
+// })
 
 
 require(["jquery","director","index","jsviews"],function($,Router){
