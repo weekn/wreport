@@ -4,19 +4,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 <script data-main="plugins/js/main" defer async="true" src="plugins/js/require.js"></script>
 <link href="plugins/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
-
-<!--<link rel="stylesheet" href="plugins/jquery-ui-1.12.1.custom/jquery-ui.min.css">-->
-<!--<link rel="stylesheet" href="plugins/jquery-ui-1.12.1.custom/jquery-ui.structure.css">-->
-<!--<link rel="stylesheet" href="plugins/jquery-ui-1.12.1/themes/base/all.css">-->
-<link rel="stylesheet" href="plugins/jquery-ui-1.12.1/demos/demos.css">
+<link rel="stylesheet" href="plugins/font-awesome-4.7.0/css/font-awesome.min.css">
+<link href="plugins/jquery-ui-1.12.1/demos/demos.css" rel="stylesheet">
+<link rel="stylesheet" href="plugins/jquery-ui-1.12.1/themes/base/all.css">
 <link rel="stylesheet" href="plugins/jquery-ui-1.12.1.custom/jquery-ui.theme.css">
+
 <link rel="stylesheet" href="plugins/css/index.css" type="text/css" />
 
 
 
 <body style="margin: 0;background-color: rgb(247,247,247)">
+
+
     <div class="top">
-        <div class="top_left">经分组</div>
+        <div class="top_left">
+            <input type="text" style="border:none;background-color: transparent;width:0;height: 0" id="choose_date"/>
+            经分组
+            <i class="fa fa-angle-left" aria-hidden="true"></i>
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+            <span id="choose_date_span" style="font-size:12px"></span>
+            <i class="fa fa-angle-right" aria-hidden="true"></i>
+        </div>
         <div class="top_center">
             <div class="top_center_div top_center_active" style="border-top-left-radius:25px;border-bottom-left-radius:25px;"><a href="#/myReport">我的周报</a></div>
             <div class="top_center_div"><a href="#/browseTeamReport">团队周报</a></div>

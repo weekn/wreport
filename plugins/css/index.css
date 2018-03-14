@@ -81,7 +81,8 @@ flow_lock{
 	align-items:center;
 	justify-content:center;
 	margin:auto auto;
-	order:1
+	order:1;
+	flex-shrink:0.1
 }
 .top_center_div{
 	background-color: rgb(33,137,247);
@@ -250,4 +251,10 @@ flow_lock{
 
    
 
+}
+
+@media screen  and  (max-width:350px){
+	.top_right span{
+		display: none;
+	}
 }

@@ -1,4 +1,4 @@
-define(['jquery', "wangEditor"], function($, E) {
+define(['jquery', "jqueryui"], function($) {
     
     $(document).ready(function() {
         initWindow();
@@ -28,7 +28,52 @@ define(['jquery', "wangEditor"], function($, E) {
 
         $(".top_center_div").removeClass("top_center_active");
         $(this).parent().addClass("top_center_active");
-    })
+    });
+
+    function TopLeftController(){
+        this.dom=$(".top_left");
+        this.weekn_d=0;
+        this.init=function(){
+            var that=this;
+            $( "#choose_date" ).datepicker({
+                showButtonPanel: true,
+                monthNames: [ "一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月r", "十二月" ],
+                dayNamesMin  : [ "周日", "周一", "周二", "周三", "周四", "周五", "周六" ],
+                defaultDate: +0,
+                maxDate: "+1w",
+                onClose:function( dateText,inst){
+
+                    var select_date = new Date(dateText);
+                    var today_date=new Date();
+                    var select_comdays=(select_date.getTime()- select_date.getDay()*(1000*24*60*60))/(1000*24*60*60);
+                    var today_comdays=(today_date.getTime()-today_date.getDay()*(1000*24*60*60)-today_date.getHours()*1000*60*60)/(1000*24*60*60);
+                    var new_weekn_d=Math.round((today_comdays-select_comdays)/7);
+                    if(new_weekn_d!=that.weekn_d){//有无更新
+                        that.weekn_d=new_weekn_d;
+                        if(new_weekn_d>0){//只能选之前或本周
+                            $("#choose_date_span").html(dateText+" 上"+new_weekn_d+"周");
+                        }else if(new_weekn_d==0){
+                            $("#choose_date_span").html("本周");
+                        }
+                    }
+
+
+                    // console.log(timeStamp/(1000*24*60*60))
+                    // var select_timedays=today_timeStamp/(1000*24*60*60);
+                    // var today_timedays=(new Date().getTime()-new Date().getHours()*1000*60*60)/(1000*24*60*60);
+                    // console.log(new Date().getHours())
+                    // console.log(today_timeStamp)
+                }
+            });
+            that.dom.find(".fa-calendar,#choose_date_span").click(function(){
+                console.log(that.dom.find("#choose_date"))
+                that.dom.find("#choose_date").focus();
+            });
+
+        }
+    }
+    var t=new TopLeftController();
+    t.init();
 
 
 });

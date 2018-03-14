@@ -1,4 +1,4 @@
-define(['jquery', "wangEditor","jquery.ui.tab","jsviews","jquery.bootstrap"], function($, E) {
+define(['jquery', "wangEditor","jqueryui","jsviews","jquery.bootstrap"], function($, E) {
     var get_data_path="data/user_report.json";
     var editor_record_dic={};
 
@@ -16,7 +16,14 @@ define(['jquery', "wangEditor","jquery.ui.tab","jsviews","jquery.bootstrap"], fu
     function ReportDetail(){
         this.top="11px";
         this.editor="null";
-
+        this.menulist=[
+            'bold',
+            'italic',
+            'underline',
+            'foreColor', // 文字颜色
+            'backColor', // 背景颜色
+            'list' // 列表
+        ];
         this.open=function(report_id,title){
             var that=this;
 
@@ -27,9 +34,29 @@ define(['jquery', "wangEditor","jquery.ui.tab","jsviews","jquery.bootstrap"], fu
 
                     "overflow-y":"hidden"
                 });
+                if(that.editor=="null"){//判断是不是第一次启动，也放前面
+                    $( "#tabs" ).tabs({
+                        // collapsible: true
+                    });
+                    that.editor={}
+                    that.editor["outcome"]=new E("#teamReportDetail_outcome_menu",
+                        "#teamReportDetail_outcome_editor");
+                    that.editor["problem"]=new E("#teamReportDetail_problem_menu",
+                        "#teamReportDetail_problem_editor");
+                    that.editor["plan"]=new E("#teamReportDetail_plan_menu",
+                        "#teamReportDetail_plan_editor");
+                    that.editor["outcome"].customConfig.menus=that.menulist;
+                    that.editor["problem"].customConfig.menus=that.menulist;
+                    that.editor["plan"].customConfig.menus=that.menulist;
+                    that.editor["outcome"].create();
+                    that.editor["problem"].create();
+                    that.editor["plan"].create();
+
+                }
                 if($(window).width()<970){
                     $(".teamReportDetail").width($(window).width()-8);
                     $(".teamReportDetail").height($(window).height()-8);
+                    $(".teamReportDetail_editor").height($(window).height()-165);
                 }
 
                 var window_height = $(window).height();
@@ -47,26 +74,16 @@ define(['jquery', "wangEditor","jquery.ui.tab","jsviews","jquery.bootstrap"], fu
                 // console.log($(window).width(),$(".teamReportDetail").width())
                 $.observable(that).setProperty("top",res_height+$(document).scrollTop());
 
-                if(that.editor=="null"){
-                    that.editor=new E(".teamReportDetail_editor");
-                    that.editor.customConfig.menus = [
-                        'bold',
-                        'italic',
-                        'underline',
-                        'foreColor', // 文字颜色
-                        'backColor', // 背景颜色
-                        'list' // 列表
-                    ];
-                    that.editor.create();
 
-                }
             }
 
             divformat();
             console.log(title)
             $.observable(that).setProperty("title",title);
 
-            that.editor.txt.html(editor_record_dic[report_id]["outcome"].txt.html())
+            that.editor["outcome"].txt.html(editor_record_dic[report_id]["outcome"].txt.html())
+            that.editor["problem"].txt.html(editor_record_dic[report_id]["problem"].txt.html())
+            that.editor["plan"].txt.html(editor_record_dic[report_id]["plan"].txt.html())
 
 
 
@@ -177,9 +194,7 @@ define(['jquery', "wangEditor","jquery.ui.tab","jsviews","jquery.bootstrap"], fu
                     console.log($(this).closest("[title]"))
                     console.log(title)
                     that.reportDetail.open(report_id,title);
-                    $( "#tabs" ).tabs({
-                        // collapsible: true
-                    });
+
 
                 })
                 .on("click",".teamReportDetail_back",function(){
