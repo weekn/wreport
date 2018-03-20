@@ -46,7 +46,7 @@ flow_lock{
     top:0;
     left:0;
     display: none;
-    z-index: 999;
+    z-index: 900;
 }
 .top{
 	background-color:rgb(62,159,248);
@@ -111,7 +111,7 @@ flow_lock{
 .top_right{
 	margin-right: 20px;
 	height: 50px;
-
+    cursor:pointer;
 	position:relative;
 	order:2;
 	line-height: 50px

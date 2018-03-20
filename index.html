@@ -11,7 +11,9 @@
 
 <link rel="stylesheet" href="plugins/css/index.css" type="text/css" />
 
-
+<style>
+    .ui-menu { width: 150px; padding-left: 0}
+</style>
 
 <body style="margin: 0;background-color: rgb(247,247,247)">
 
@@ -33,6 +35,18 @@
         <div class="top_right">
             <img style="border:1px solid rgb(219,220,224);width:38px;height:38px;padding:2px;border-radius:8px;background-color: #FFF;margin-bottom: 2px" src="plugins/img/user.png" />
             <span style="color:#FFF;margin-left:10px">weekn</span>
+            <ul id="top_right_menu" style="z-index:901;position:absolute;right: 0">
+                <li>
+                    <div><a href="#/setting/user" style="height:inherit"><i class="fa fa-cog" style="position: relative;margin-right:10px"></i>个人设置</a></div>
+                </li>
+                <li>
+                    <div><a href="#/setting/team"><i class="fa fa-cogs" style="position: relative;margin-right:10px"></i>团队设置</a></div>
+                </li>
+                <li>
+                    <div>  <i class="fa fa-power-off" style="position: relative;margin-right:10px"></i></span>退出</div>
+                </li>
+
+            </ul>
         </div>
         <!-- <div style="height:1px; margin-top:20px;clear: both;overflow: hidden"></div> -->
     </div>
@@ -43,6 +57,7 @@
 
     <div moudule="m_login" class="login" ></div>
     <div class="panel">
+        <div moudule="m_setting"></div>
         <div moudule="m_writeReport"></div>
         <div moudule="m_browseTeamReport"></div>
     </div>

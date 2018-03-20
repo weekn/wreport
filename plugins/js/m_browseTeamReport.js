@@ -191,8 +191,7 @@ define(['jquery', "wangEditor","jqueryui","jsviews","jquery.bootstrap"], functio
                 .on("dblclick",".teamReport_content_content",function(){
                     var title=$(this).closest("[pro_id]").find("[title]").attr("title");
                     var report_id=$(this).closest("[report_id]").attr("report_id");
-                    console.log($(this).closest("[title]"))
-                    console.log(title)
+
                     that.reportDetail.open(report_id,title);
 
 

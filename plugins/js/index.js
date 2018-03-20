@@ -72,7 +72,28 @@ define(['jquery', "jqueryui"], function($) {
 
         }
     }
+
+    function TopRightController(){
+        this.menu_dom=$( "#top_right_menu" );
+        this.init=function(){
+            var that=this;
+            that.menu_dom.menu({
+
+            });
+            that.menu_dom.hide();
+            $(".top_right").hover(function(){
+
+            },function(){
+                that.menu_dom.hide();
+            });
+            $(".top_right").click(function(){
+                that.menu_dom.show();
+            });
+        }
+    }
     var t=new TopLeftController();
+    var topr=new TopRightController();
+    topr.init();
     t.init();
 
 

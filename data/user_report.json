@@ -26,6 +26,16 @@
               "problem": "<p>无</p>",
               "plan": "<p>继续睡觉</p>"
             }
+          },
+          {
+            "name": "NGBOSS接口改造",
+            "id": "24",
+            "report": {
+              "report_id": "c",
+              "outcome": "<p>1.搞什么</p>",
+              "problem": "<p>无</p>",
+              "plan": "<p>继续睡觉</p>"
+            }
           }
         ]
       },

@@ -11,7 +11,8 @@ require.config({
         "wangEditor":"wangEditor-3.0.16/release/wangEditor.min",
         "m_login":"js/m_login",
         "m_browseTeamReport":"js/m_browseTeamReport",
-        "m_writeReport":"js/m_writeReport"
+        "m_writeReport":"js/m_writeReport",
+        "m_setting":"js/m_setting"
         
     },
     shim: {
@@ -129,6 +130,39 @@ require(["jquery","director","index","jsviews","jqueryui"],function($,Router){
             after:function(){
 
                 $("[moudule=m_writeReport]").hide();
+            }
+        },
+        "/setting":{
+            "/user":{
+                on:function(){
+                    console.log("setting user");
+                    if(moudule_loaded["m_setting"]!=true){
+                        $.get("m_setting.html", function(tmpl) {
+
+                            require(["m_setting"],function(B){
+
+
+                                var b=new B();
+                                b.init(tmpl);
+                                moudule_loaded["m_setting"]=true;
+                            })
+
+                            //
+                        });
+                    }else{
+                        $("[moudule=m_setting]").show();
+                    }
+
+
+                },
+                after:function(){
+                    $("[moudule=m_setting]").hide();
+                }
+            },
+            "/team":{
+                on:function(){
+
+                }
             }
         }
     };
