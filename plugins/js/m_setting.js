@@ -1,6 +1,7 @@
 define(['jquery', "jqueryui"], function($) {
     // var get_running_project_path="data/user_report.json";
     var get_running_project_path="http://localhost:8081/project";
+    var add_project_path="http://localhost:8081/project"
 
     function Setting(){
         this.runningProject=[];
@@ -12,6 +13,18 @@ define(['jquery', "jqueryui"], function($) {
             });
         };
         this.dialog = "";
+        this.addProject=function(data){
+            var that=this;
+            $.ajax({
+                  type: 'POST',
+                  url: add_project_path,
+                  contentType:"application/json",
+                  data: JSON.stringify(data),
+                  success: function(rsp){
+                       $.observable(that).setProperty("runningProject",rsp['response']);
+                  }
+            });
+        }
         this.init=function(tmpl){
             var that=this;
             var app = {
@@ -36,6 +49,7 @@ define(['jquery', "jqueryui"], function($) {
                                     level:level,
                                     up_id:up_id
                                 }
+                                that.addProject(json_data);
                             },
                             "取消": function() {
                                 that.dialog.dialog( "close" );
