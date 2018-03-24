@@ -14,8 +14,6 @@ define(['jquery', "wangEditor", "jsviews", "jquery.bootstrap"], function ($, E) 
         this.option_0 = [];
         this.option_1 = [];
         this.option_2 = [];
-        this.option_1_visiable=false;
-        this.option_2_visiable=false;
         this.pro_option_dic = pro_option_dic;
         this.editor_outcome = "";
         this.editor_problem = "";
@@ -92,19 +90,8 @@ define(['jquery', "wangEditor", "jsviews", "jquery.bootstrap"], function ($, E) 
             $.observable(this).setProperty("option_0", option_0);
             $.observable(this).setProperty("option_1", option_1);
             $.observable(this).setProperty("option_2", option_2);
-            //下面判断菜单多级项目每一级是否显示
-            var vb=[true,false,false];
-            for(var i=0;i<=parseInt(this.project_level);i++){
-                vb[i]=true;
-            }
-            var next_i=parseInt(this.project_level)+1;
+            console.log("o0--",this.option_0["length"])
 
-            if(next_i<=2&&this["option_"+next_i].length>0){
-                vb[next_i]=true;
-            }
-
-            $.observable(this).setProperty("option_1_visiable", vb[1]);
-            $.observable(this).setProperty("option_2_visiable", vb[2]);
         };
 
 
@@ -235,7 +222,7 @@ define(['jquery', "wangEditor", "jsviews", "jquery.bootstrap"], function ($, E) 
         };
         this.submitReport=function(item){
             var that = this;
-
+           
             var e_outcome=that.items[item].editor_outcome.txt.html();
             var e_problem=that.items[item].editor_problem.txt.html();
             var e_plan=that.items[item].editor_plan.txt.html();
@@ -257,14 +244,14 @@ define(['jquery', "wangEditor", "jsviews", "jquery.bootstrap"], function ($, E) 
 
                 // console.log("di1----------"+ritem["select_"+ritem["project_level"]]["id"])
                 var pro_id=
-                    report_data={
-                        "project_id": ritem["select_"+ritem["project_level"]]["id"],
-                        "general": 0,
-                        "outcome": ritem.editor_outcome.txt.html(),
-                        "problem": ritem.editor_problem.txt.html(),
-                        "plan": ritem.editor_plan.txt.html(),
-                        "rate": 0
-                    };
+                report_data={
+                    "project_id": ritem["select_"+ritem["project_level"]]["id"],
+                    "general": 0,
+                    "outcome": ritem.editor_outcome.txt.html(),
+                    "problem": ritem.editor_outcome.txt.html(),
+                    "plan": ritem.editor_plan.txt.html(),
+                    "rate": 0
+                };
 
                 gc.ajax("/report","POST",report_data,"",function(rsp){
                     console.log("in post ffffff")

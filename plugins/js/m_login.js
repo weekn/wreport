@@ -7,8 +7,17 @@ define(['jquery', "wangEditor","jsviews","jquery.bootstrap"], function($, E) {
         this.password="";
 
         this.login=function(){
-            console.log("login--"+this.account+"  "+this.password)
-            window.location.href="index.html#/myReport";
+            console.log("login--"+this.account+"  "+this.password);
+            var data={
+                username:this.account,
+                password:this.password
+            };
+
+            gc.ajax("/token","POST",data,"",function(rsp){
+                gc["user"]=rsp["response"];
+                console.log(JSON.stringify(gc["user"]));
+                window.location.href="index.html#/myReport";
+            })
         };
         this.init=function(tmpl){
             var that=this;

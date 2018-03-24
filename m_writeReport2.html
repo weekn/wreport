@@ -130,7 +130,13 @@
         <div class="dropdown">
             <span data-toggle="dropdown" class='report_category_dropdown'>{^{option_txt:prop.select_0.name}}</span>
             <ul class="dropdown-menu" role="menu" level="l0">
-                <li class="dropdown-header">一级项目 </li>
+                <li class="dropdown-header">
+                    一级项目
+                    <span data-link="visible{:prop.option_0.length > 0}">
+                    发发发
+                    发发发</span>
+
+                </li>
                 {^{props prop.option_0}}
 
                 <li role="presentation"><a catagory_id="{{>prop.id}}" role="menuitem" tabindex="-1" href="javascript:void(0)" >{^{:prop.name}}</a></li>
@@ -139,7 +145,7 @@
             </ul>
         </div>
         <div><span class="glyphicon glyphicon-chevron-right"></span></div>
-        <div class="dropdown" data-link="visible{:prop.option_1_visiable}">
+        <div class="dropdown">
             <span class='report_category_dropdown' data-toggle="dropdown">{^{option_txt:prop.select_1.name}}</span>
             <ul class="dropdown-menu" role="menu" level="l1">
                 <li class="dropdown-header">二级项目</li>
@@ -149,7 +155,7 @@
             </ul>
         </div>
         <div><span class="glyphicon glyphicon-chevron-right"></span></div>
-        <div class="dropdown" data-link="visible{:prop.option_2_visiable}">
+        <div class="dropdown">
             <span class='report_category_dropdown' data-toggle="dropdown">{^{option_txt:prop.select_2.name}}</span>
             <ul class="dropdown-menu dropdown-menu-right" role="menu" level="l2">
                 <li class="dropdown-header">三级项目</li>

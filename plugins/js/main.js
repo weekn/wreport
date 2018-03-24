@@ -42,7 +42,7 @@ require(["jquery","director","index","jsviews","jqueryui"],function($,Router){
      var myReport =function(){
 
 
-        if(moudule_loaded["m_writeReport"]!=true){
+        if(!moudule_loaded.hasOwnProperty("m_writeReport")){
             console.log("myReport");
             $.get("m_writeReport.html", function(data) {
                 require(["m_writeReport"],function(M){
@@ -50,7 +50,8 @@ require(["jquery","director","index","jsviews","jqueryui"],function($,Router){
 
                     var mouduel=new M(data);
                     mouduel.init(data);
-                    mouduel.getReport();
+                    moudule_loaded["m_writeReport"]=mouduel;
+                    //mouduel.getReport();
 
 
                 })
@@ -58,9 +59,10 @@ require(["jquery","director","index","jsviews","jqueryui"],function($,Router){
 
 
             });
-            moudule_loaded["m_writeReport"]=true;
+
         }else{
-            $("[moudule=m_writeReport]").show()
+            $("[moudule=m_writeReport]").show();
+            moudule_loaded["m_writeReport"].fresh();
         }
 
     };
@@ -174,8 +176,62 @@ require(["jquery","director","index","jsviews","jqueryui"],function($,Router){
 
 
     
-})
+});
+function GlobalControll(){
+    this.base_url="http://localhost:8081";
+    this.user={
+        "id": 1,
+        "username": "admin",
+        "password": null,
+        "token": "156c34ab-25aa-4be2-ae6f-60dd9e579714",
+        "roles": [
+            {
+                "id": null,
+                "name": "ROLE_ADMIN"
+            },
+            {
+                "id": null,
+                "name": "ROLE_USER"
+            }
+        ]
+    };
+    this.ajax = function(url,method,data,msg,func){
+        var that =this;
+        console.log("-----------gc-agax------------------");
+        $("#ajax_loading").show();
+        $.ajax({
+            url: that.base_url+url,
+            type:method,
+            contentType:"application/json",
+            data:JSON.stringify(data),
+            beforeSend: function(xhr){
+                xhr.setRequestHeader('token', that.user["token"]);
+            },
+            success: function(rsp){
+                func(rsp);
+                $("#ajax_loading").hide();
 
+            },
+            error:function(err){
+                console.log("ajax err--------------------");
+                console.log(err)
+            }
+        });
+    };
+    this.goDialog=function(msg){
+        $("#gc_dialog").find("p").html(msg);
+        $("#gc_dialog").dialog();
+        setTimeout(function(){
+            $("#gc_dialog").dialog( "destroy" );
+        },3000)
+    }
+
+
+
+}
+var gc=new GlobalControll();
+
+base_url="http://localhost:8081";
 // require(["jquery","wangEditor","jquery.bootstrap","index","reportItem","jsviews"],function($,E){
 //     $(function(){
 //         // alert(E);  

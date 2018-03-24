@@ -93,7 +93,7 @@
         line-height: 67px;
         height:67px;
         text-align: center;
-        font-size: 19px;
+        font-size: 16px;
         margin:5px;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -117,23 +117,85 @@
 </style>
 <div class="setting_team_running_project">
     <div class="setting_team_top">
-        运营分析室
+        <span style="float:left">
+            运营分析室
+        </span>
+
+        <div style="margin-left: 20px;width:250px;float:left;font-size: 15px">
+            <span class="fa-stack " name="team_setting_add_pro_0">
+                    <i class="fa fa-circle fa-stack-2x" style="color:rgb(33,137,247)"></i>
+                    <i class="fa fa-plus fa-stack-1x fa-inverse" ></i>
+            </span>
+        </div>
     </div>
     {^{for setting.runningProject}}
     <div class="running_project_0">
         <div class="running_project_top_0" title="{{>name}}" pro_id="{{>id}}">
-            <i class="fa fa-plus" aria-hidden="true"></i>
+
+            <span name="setting_fabs">
+
+                   <i class="fa fa-caret-down" aria-hidden="true"></i>
+
+                <span style="position: absolute;margin-left: -51px;margin-top:29px;width:80px;display: none">
+                <span class="fa-stack fa-sm" name="team_setting_add_pro">
+                    <i class="fa fa-circle fa-stack-2x" style="color:rgb(33,137,247)"></i>
+                    <i class="fa fa-plus fa-stack-1x fa-inverse" ></i>
+                </span>
+                <span  class="fa-stack fa-sm">
+                    <i class="fa fa-circle fa-stack-2x" style="color: rgb(100,100,100)"></i>
+                    <i class="fa fa-wrench fa-stack-1x fa-inverse" ></i>
+                </span>
+                <span  class="fa-stack fa-sm">
+                    <i class="fa fa-circle fa-stack-2x" style="color:red"></i>
+                    <i class="fa fa-trash-o fa-stack-1x fa-inverse" ></i>
+                </span>
+                </span>
+            </span>
             {^{:name}}
         </div>
         {^{for sub}}
         <div class="running_project_1">
 
             <div class="running_project_top_1" title="{{>#parent.parent.data.name}}-{{>name}}" pro_id="{{>id}}">
-                <i class="fa fa-plus" aria-hidden="true"></i>
+                <span name="setting_fabs" >
+
+                       <i class="fa fa-caret-down" aria-hidden="true"></i>
+
+                    <span style="position: absolute;margin-left: -35px;margin-top:24px;width:50px;height:200px;display: none">
+                    <span class="fa-stack fa-sm" name="team_setting_add_pro">
+                        <i class="fa fa-circle fa-stack-2x" style="color:rgb(33,137,247)"></i>
+                        <i class="fa fa-plus fa-stack-1x fa-inverse" ></i>
+                    </span>
+                    <span  class="fa-stack fa-sm">
+                        <i class="fa fa-circle fa-stack-2x" style="color: rgb(100,100,100)"></i>
+                        <i class="fa fa-wrench fa-stack-1x fa-inverse" ></i>
+                    </span>
+                    <span  class="fa-stack fa-sm">
+                        <i class="fa fa-circle fa-stack-2x" style="color:red"></i>
+                        <i class="fa fa-trash-o fa-stack-1x fa-inverse" ></i>
+                    </span>
+                    </span>
+                </span>
                 {^{:name}}
             </div>
             {^{for sub}}
-            <div class="running_project_2" pro_id="{{>id}}">
+            <div class="running_project_2" pro_id="{{>id}}" title="{{>#parent.parent.parent.parent.data.name}}-{{>#parent.parent.data.name}}-{{>name}}">
+                <span name="setting_fabs" >
+
+                       <i class="fa fa-caret-down" aria-hidden="true"></i>
+
+                    <span style="position: absolute;margin-left: -35px;margin-top:24px;width:50px;height:200px;display: none">
+
+                    <span  class="fa-stack fa-sm">
+                        <i class="fa fa-circle fa-stack-2x" style="color: rgb(100,100,100)"></i>
+                        <i class="fa fa-wrench fa-stack-1x fa-inverse" ></i>
+                    </span>
+                    <span  class="fa-stack fa-sm">
+                        <i class="fa fa-circle fa-stack-2x" style="color:red"></i>
+                        <i class="fa fa-trash-o fa-stack-1x fa-inverse" ></i>
+                    </span>
+                    </span>
+                </span>
                 {^{:name}}
             </div>
             {{/for}}
@@ -151,6 +213,7 @@
 </div>
 <div style="height:1px; margin-top:20px;clear: both;overflow: hidden"></div>
 
+<div style="display: none">
 
 <div id="team_setting_addPro" title="增加一项">
     <p class="validateTips">All form fields are required.</p>
@@ -168,4 +231,10 @@
             <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
         </fieldset>
     </form>
+</div>
+
+<div id="dialog-confirm" title="删除项目">
+    <p>确定删除吗?</p>
+</div>
+
 </div>

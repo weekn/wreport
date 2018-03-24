@@ -133,124 +133,21 @@ flow_lock{
 	margin-top:102px;
 }
 
-.report_top{
-	/*background-color: rgb(62,159,248);*/
-	background-color: rgb(247,247,247);
-	height: 45px;
-	line-height: 45px;
-	width:100%;
-	padding-left: 15px;
-	border-top-right-radius:10px;
-	border-top-left-radius:10px;
-}
-.report_item{
-}
-.report_category{
-	height: 40px;
-	padding-top:15px;
-	padding-left: 20px;
-	margin-bottom:15px;
-
-}
-.report_category div{
-	margin-right:5px;
-	margin-left:5px;
-	font-size: 16px;
-	font-weight: bold;
-	float:left;
-
-}
-.report_category_dropdown{
- 	width:170px;
- 	white-space: nowrap;
- 	overflow: hidden;
- 	text-overflow: ellipsis;
- 	cursor:pointer;
- 	/*color:rgb(62,159,248);*/
- 	/*color:rgb(108,197,250);*/
-}
-.report_cata_option{
-	height:30px;
-	line-height: 30px;
-	padding-left: 5px;
-
-}
-.report_entry{
-	float:left;
-	width:33.3333%;
-}
-.report_entry_title{
-	text-align: center;
-	width:94%;
-	font-size:19px;
-	background-color: rgb(247,247,247);
-	margin:0 auto;
-	padding-top:4px;
-	padding-bottom:4px;
-	border-top-right-radius:10px;
-	border-top-left-radius:10px;
-	/*color:rgb(108,197,250);*/
-	/*color:rgb(62,159,248);*/
-}
-.report_menu{
-	width:100%;
-	border: 1px solid #ccc;
-	background-color: rgb(241,241,241);
-	/*display: none*/
-}
-.report_editor{
-	width:100%;
-	overflow-y: hidden;
-	/*border-bottom: 1px solid #ccc;*/
-	min-height: 50px;
-	border: 3px solid rgb(245,245,245)
-	/*max-height: 300px*/
-	/*height:50px;*/
-
-}
-.report_editor div{
-	overflow-y: hidden;
-}
-.report_submit{
-	width:100px;
-	height:37px;
-	line-height: 37px;
-	text-align: center;
-	margin:0 auto;
-	color:#FFF;
-	background-color: rgb(62,159,248);
-	cursor:pointer;
-}
 
 
-
-
-@media screen  and  (max-width:970px){
-
-.report_category div{
-	margin-right:2px;
-	margin-left:2px;
-	font-size: 16px;
-	font-weight: bold;
-	float:left;
-
-}
-.report_category_dropdown{
- 	width:40px;
- 	white-space: nowrap;
- 	overflow: hidden;
- 	text-overflow: ellipsis;
- 	color:rgb(62,159,248);
-}
-.report_entry{
-	margin:0 auto;
-	width:90%;
-	
-	float:none;
-}
-
-   
-
+#ajax_loading{
+	position: absolute;
+    /*display: flex;*/
+    /*display: -webkit-flex;*/
+    /*flex-direction: row;*/
+    /*justify-content:center;*/
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    top:50px;
+    z-index: 100;
+    display: none;
 }
 
 @media screen  and  (max-width:350px){
