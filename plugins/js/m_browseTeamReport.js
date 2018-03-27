@@ -1,5 +1,5 @@
 define(['jquery', "wangEditor","jqueryui","jsviews","jquery.bootstrap"], function($, E) {
-    var get_data_path="data/user_report.json";
+    var get_data_path="/report/team";
     var editor_record_dic={};
 
     function ReportItem(name,id,report){
@@ -105,20 +105,8 @@ define(['jquery', "wangEditor","jqueryui","jsviews","jquery.bootstrap"], functio
         this.getReport=function(){
 
             var that=this;
-            $.get(get_data_path,function(json){
-
-                // for(var i0 in json){
-                //     var c0=json[i0];
-                //     for(var i1 in c0["sub"]){
-                //         var c1=c0["sub"][i1];
-                //         for (var i2 in c1["sub"]){
-                //             var c2=c1["sub"][i2];
-                //             var item=new ReportItem(c0,c1,c2);
-                //         }
-                //     }
-                // }
-
-
+            gc.ajax(get_data_path,"GET","","",function(rsp){
+                var json=rsp["response"];
                 $.observable(that.reports).refresh(json);
                 editor_record_dic={};//clean
                 $(".teamReport_content_content").each(function(i){
@@ -136,11 +124,31 @@ define(['jquery', "wangEditor","jqueryui","jsviews","jquery.bootstrap"], functio
                     editor_record_dic[report_id][cata].$textElem.attr('contenteditable', false);
                 });
                 $("html,body").animate({scrollTop:0},0);//回顶端
-                // document.querySelector("html").classList.add("lock");
-                // window.addEventListener("mousewheel", this.forbidScroll);
-                // window.addEventListener("touchmove", this.forbidScroll, { passive: false });
-
             });
+            // $.get(get_data_path,function(json){
+            //
+            //     $.observable(that.reports).refresh(json);
+            //     editor_record_dic={};//clean
+            //     $(".teamReport_content_content").each(function(i){
+            //         //遍历建立所有editor
+            //         var report_id=$(this).closest("[report_id]").attr("report_id");
+            //
+            //         var cata=$(this).closest("[report_cata]").attr("report_cata");
+            //
+            //         if(!editor_record_dic.hasOwnProperty(report_id)){
+            //             editor_record_dic[report_id]={};
+            //         }
+            //         editor_record_dic[report_id][cata]= new E("",this);
+            //         editor_record_dic[report_id][cata].customConfig.zIndex = 0;
+            //         editor_record_dic[report_id][cata].create();
+            //         editor_record_dic[report_id][cata].$textElem.attr('contenteditable', false);
+            //     });
+            //     $("html,body").animate({scrollTop:0},0);//回顶端
+            //     // document.querySelector("html").classList.add("lock");
+            //     // window.addEventListener("mousewheel", this.forbidScroll);
+            //     // window.addEventListener("touchmove", this.forbidScroll, { passive: false });
+            //
+            // });
         };
 
 

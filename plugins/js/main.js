@@ -208,7 +208,11 @@ function GlobalControll(){
                 xhr.setRequestHeader('token', that.user["token"]);
             },
             success: function(rsp){
-                func(rsp);
+                if(rsp["status"]==-1){
+                    window.location.href="index.html#/login";
+                }else{
+                    func(rsp);
+                }
                 $("#ajax_loading").hide();
 
             },
