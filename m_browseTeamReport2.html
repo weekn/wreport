@@ -235,7 +235,7 @@
             </div>
             <div class="teamReport_1_content">
 
-                    <div report_id="{{>report.report_id}}">
+                    <div report_id="{{>report.id}}">
                     <div class="teamReport_content">
 
                         <div class="teamReport_content_top">
@@ -277,10 +277,49 @@
                 {^{for sub}}
                 <div class="teamReport_2"  pro_id="{{>id}}">
                     <div class="teamReport_2_top" title="{{>#parent.parent.parent.parent.parent.data.name}}-{{>#parent.parent.parent.data.name}}-{{>name}}">
-                        {^{:name}}
+                        <span style="float: left" name="team_report_clk2">{^{:name}}</span>
+                        {^{if roles}}
+                        <div class="dropdown" style="float: left;margin-left: 10px" >
+
+                            <span  data-toggle="dropdown"><i class="fa fa-users" aria-hidden="true"></i></span>
+                            <ul class="dropdown-menu " role="menu" level="l2">
+                                <li class="dropdown-header">项目A角</li>
+                                {^{for roles}}
+                                    {^{if role==0}}
+                                    <li role="presentation" ><a  role="menuitem" tabindex="-1" href="javascript:void(0)">{^{:user_name}}</a></li>
+                                    {{/if}}
+                                {{/for}}
+                                <li class="dropdown-header">项目B角</li>
+                                {^{for roles}}
+                                    {^{if role==1}}
+                                    <li role="presentation"><a  role="menuitem" tabindex="-1" href="javascript:void(0)">{^{:user_name}}</a></li>
+                                    {{/if}}
+                                {{/for}}
+
+                            </ul>
+                        </div>
+                        {{/if}}
+
+                        {{if reports}}
+                        <div class="dropdown" style="float: left;margin-left: 10px" >
+
+                            <span  data-toggle="dropdown"><i class="fa fa-book" aria-hidden="true"></i></span>
+                            <ul class="dropdown-menu dropdown-menu-left" role="menu" level="l2">
+                                <li class="dropdown-header">已提交周报用户</li>
+                                {^{for reports}}
+
+                                <li role="presentation" data-link="{on 'click' ~getUserReport  data=#data}"><a  role="menuitem" tabindex="-1" href="javascript:void(0)">{^{:user_name}}</a></li>
+
+                                {{/for}}
+
+                            </ul>
+                        </div>
+
+                        {{/if}}
+
                     </div>
                     <div class="teamReport_2_content">
-                        <div report_id="{{>report.report_id}}">
+                        <div report_id="{{>report.id}}">
                         <div class="teamReport_content" >
                             <div class="teamReport_content_top">
                                 本周完成

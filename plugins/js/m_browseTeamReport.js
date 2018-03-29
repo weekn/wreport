@@ -24,71 +24,75 @@ define(['jquery', "wangEditor","jqueryui","jsviews","jquery.bootstrap"], functio
             'backColor', // 背景颜色
             'list' // 列表
         ];
+        this.divformat=function(){
+            var that=this;
+            $("#teamReportDetail_alert_panel").show();//放前面才能获取正确宽度。高度
+            $(document.body).css({//先取消滚动条
+
+                "overflow-y":"hidden"
+            });
+            if(that.editor=="null"){//判断是不是第一次启动，也放前面
+                $( "#tabs" ).tabs({
+                    // collapsible: true
+                });
+                that.editor={}
+                that.editor["outcome"]=new E("#teamReportDetail_outcome_menu",
+                    "#teamReportDetail_outcome_editor");
+                that.editor["problem"]=new E("#teamReportDetail_problem_menu",
+                    "#teamReportDetail_problem_editor");
+                that.editor["plan"]=new E("#teamReportDetail_plan_menu",
+                    "#teamReportDetail_plan_editor");
+                that.editor["outcome"].customConfig.menus=that.menulist;
+                that.editor["problem"].customConfig.menus=that.menulist;
+                that.editor["plan"].customConfig.menus=that.menulist;
+                that.editor["outcome"].create();
+                that.editor["problem"].create();
+                that.editor["plan"].create();
+
+            }
+            if($(window).width()<970){
+                $(".teamReportDetail").width($(window).width()-8);
+                $(".teamReportDetail").height($(window).height()-8);
+                $(".teamReportDetail_editor").height($(window).height()-165);
+            }
+
+            var window_height = $(window).height();
+            var height=$(".teamReportDetail").height();
+
+            $("#teamReportDetail_alert_panel").width($(window).width());
+            $("#teamReportDetail_alert_panel").height($(document).height());
+
+            var res_height=(window_height-height)/2;
+            if(res_height<0){
+                res_height=0;
+            }
+
+
+            // console.log($(window).width(),$(".teamReportDetail").width())
+            $.observable(that).setProperty("top",res_height+$(document).scrollTop());
+
+
+        };
         this.open=function(report_id,title){
             var that=this;
 
+            this.divformat();
 
-            function divformat(){
-                $("#teamReportDetail_alert_panel").show();//放前面才能获取正确宽度。高度
-                $(document.body).css({//先取消滚动条
-
-                    "overflow-y":"hidden"
-                });
-                if(that.editor=="null"){//判断是不是第一次启动，也放前面
-                    $( "#tabs" ).tabs({
-                        // collapsible: true
-                    });
-                    that.editor={}
-                    that.editor["outcome"]=new E("#teamReportDetail_outcome_menu",
-                        "#teamReportDetail_outcome_editor");
-                    that.editor["problem"]=new E("#teamReportDetail_problem_menu",
-                        "#teamReportDetail_problem_editor");
-                    that.editor["plan"]=new E("#teamReportDetail_plan_menu",
-                        "#teamReportDetail_plan_editor");
-                    that.editor["outcome"].customConfig.menus=that.menulist;
-                    that.editor["problem"].customConfig.menus=that.menulist;
-                    that.editor["plan"].customConfig.menus=that.menulist;
-                    that.editor["outcome"].create();
-                    that.editor["problem"].create();
-                    that.editor["plan"].create();
-
-                }
-                if($(window).width()<970){
-                    $(".teamReportDetail").width($(window).width()-8);
-                    $(".teamReportDetail").height($(window).height()-8);
-                    $(".teamReportDetail_editor").height($(window).height()-165);
-                }
-
-                var window_height = $(window).height();
-                var height=$(".teamReportDetail").height();
-
-                $("#teamReportDetail_alert_panel").width($(window).width());
-                $("#teamReportDetail_alert_panel").height($(document).height());
-
-                var res_height=(window_height-height)/2;
-                if(res_height<0){
-                    res_height=0;
-                }
+            $.observable(that).setProperty("title",title);
+            that.editor["outcome"].txt.html(editor_record_dic[report_id]["outcome"].txt.html());
+            that.editor["problem"].txt.html(editor_record_dic[report_id]["problem"].txt.html());
+            that.editor["plan"].txt.html(editor_record_dic[report_id]["plan"].txt.html());
 
 
-                // console.log($(window).width(),$(".teamReportDetail").width())
-                $.observable(that).setProperty("top",res_height+$(document).scrollTop());
-
-
-            }
-
-            divformat();
-            console.log(title)
+        };
+        this.openWithTxt=function(title,outcome,problem,plan){
+            var that=this;
+            this.divformat();
             $.observable(that).setProperty("title",title);
 
-            that.editor["outcome"].txt.html(editor_record_dic[report_id]["outcome"].txt.html())
-            that.editor["problem"].txt.html(editor_record_dic[report_id]["problem"].txt.html())
-            that.editor["plan"].txt.html(editor_record_dic[report_id]["plan"].txt.html())
-
-
-
-
-
+            that.editor["outcome"].txt.html(outcome);
+            that.editor["problem"].txt.html(problem);
+            that.editor["plan"].txt.html(plan);
         };
         this.close=function(){
             $("#teamReportDetail_alert_panel").hide();
@@ -112,7 +116,6 @@ define(['jquery', "wangEditor","jqueryui","jsviews","jquery.bootstrap"], functio
                 $(".teamReport_content_content").each(function(i){
                     //遍历建立所有editor
                     var report_id=$(this).closest("[report_id]").attr("report_id");
-
                     var cata=$(this).closest("[report_cata]").attr("report_cata");
 
                     if(!editor_record_dic.hasOwnProperty(report_id)){
@@ -125,30 +128,7 @@ define(['jquery', "wangEditor","jqueryui","jsviews","jquery.bootstrap"], functio
                 });
                 $("html,body").animate({scrollTop:0},0);//回顶端
             });
-            // $.get(get_data_path,function(json){
-            //
-            //     $.observable(that.reports).refresh(json);
-            //     editor_record_dic={};//clean
-            //     $(".teamReport_content_content").each(function(i){
-            //         //遍历建立所有editor
-            //         var report_id=$(this).closest("[report_id]").attr("report_id");
-            //
-            //         var cata=$(this).closest("[report_cata]").attr("report_cata");
-            //
-            //         if(!editor_record_dic.hasOwnProperty(report_id)){
-            //             editor_record_dic[report_id]={};
-            //         }
-            //         editor_record_dic[report_id][cata]= new E("",this);
-            //         editor_record_dic[report_id][cata].customConfig.zIndex = 0;
-            //         editor_record_dic[report_id][cata].create();
-            //         editor_record_dic[report_id][cata].$textElem.attr('contenteditable', false);
-            //     });
-            //     $("html,body").animate({scrollTop:0},0);//回顶端
-            //     // document.querySelector("html").classList.add("lock");
-            //     // window.addEventListener("mousewheel", this.forbidScroll);
-            //     // window.addEventListener("touchmove", this.forbidScroll, { passive: false });
-            //
-            // });
+
         };
 
 
@@ -158,12 +138,28 @@ define(['jquery', "wangEditor","jqueryui","jsviews","jquery.bootstrap"], functio
 
             var app = {
                 allreport:this.reports,
-                reportDetail:this.reportDetail
+                reportDetail:this.reportDetail,
+
+
             };
+            var helpers = {
+                getUserReport: function(ev) {
+
+                    var report=ev.data;
+                    var username=report.user_name;
+                    var outcome=report.outcome;
+                    var problem=report.problem;
+                    var plan=report.plan;
+                    var title=$(ev.currentTarget).closest("[title]").attr("title").split("-");
+                    title=title[title.length-1]
+                    that.reportDetail.openWithTxt("“"+username+"”的"+title+"项目周报",outcome,problem,plan);
+                }
+            }
             var myTemplate = $.templates(tmpl);
 
-            myTemplate.link("[moudule=m_browseTeamReport]", app)
+            myTemplate.link("[moudule=m_browseTeamReport]", app,helpers)
                 .on("click",".teamReport_0_top",function(){
+                    console.log(this)
                     if( $(this).next().is(':hidden')){　　//如果node是隐藏的则显示node元素，否则隐藏
                         $(this).removeClass("teamReport_0_top_hide");
                     }else{
@@ -185,15 +181,17 @@ define(['jquery', "wangEditor","jqueryui","jsviews","jquery.bootstrap"], functio
                     $(this).next().slideToggle();
 
                 })
-                .on("click",".teamReport_2_top",function(){
-                    if( $(this).next().is(':hidden')){　　//如果node是隐藏的则显示node元素，否则隐藏
-                        $(this).removeClass("teamReport_0_top_hide");
+                .on("click","[name=team_report_clk2]",function(){
+                    var tar=$(this).closest(".teamReport_2_top");
+                    console.log(tar)
+                    if( tar.next().is(':hidden')){　　//如果node是隐藏的则显示node元素，否则隐藏
+                        tar.removeClass("teamReport_0_top_hide");
                     }else{
 
-                        $(this).addClass("teamReport_0_top_hide");
+                        tar.addClass("teamReport_0_top_hide");
 
                     }
-                    $(this).next().slideToggle();
+                    tar.next().slideToggle();
 
                 })
                 .on("dblclick",".teamReport_content_content",function(){
