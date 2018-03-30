@@ -174,22 +174,15 @@
      style="background-color: rgba(247,247,247,0.5);position: absolute;top:0;left:0;z-index: 100;display: none">
     <div class="teamReportDetail" data-link="css-margin-top{:reportDetail.top} ">
 
-        <div class="teamReportDetail_top">
+        <div class="teamReportDetail_top ">
             <button class="teamReportDetail_back">后退</button>
 
-            <div style="margin: 0 auto;width:70%;text-align: center">
+            <div style="margin: 0 auto;width:60%;text-align: center;position: absolute;left:0; right:0;">
                 {^{:reportDetail.title}}
 
-                <!--<div class="teamReportDetail_top_div">-->
-                    <!--xxxx-->
-                <!--</div>-->
-                <!--<div class="teamReportDetail_top_div">-->
-                    <!--xxxx-->
-                <!--</div>-->
-                <!--<div class="teamReportDetail_top_div">-->
-                    <!--xxxx-->
-                <!--</div>-->
             </div>
+
+            <button style="float:right;background-color: transparent;  border: none;  font-size: 12px;">确认</button>
 
 
         </div>
@@ -316,7 +309,18 @@
                         </div>
 
                         {{/if}}
+                        {{if report}}
+                        <div class="dropdown" style="float: left;margin-left: 10px" >
+                            <span  data-toggle="dropdown"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i></span>
+                            <ul class="dropdown-menu dropdown-menu-left" role="menu" level="l2">
 
+                                <li role="presentation" data-link="{on 'click' ~editGenenalReport  data=#data}">
+                                    <a  role="menuitem" tabindex="-1" href="javascript:void(0)">汇总周报编辑</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                        {{/if}}
                     </div>
                     <div class="teamReport_2_content">
                         <div report_id="{{>report.id}}">

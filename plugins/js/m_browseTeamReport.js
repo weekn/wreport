@@ -33,8 +33,13 @@ define(['jquery', "wangEditor","jqueryui","jsviews","jquery.bootstrap"], functio
             });
             if(that.editor=="null"){//判断是不是第一次启动，也放前面
                 $( "#tabs" ).tabs({
-                    // collapsible: true
+                    create: function( event, ui ) {
+                        console.log($(ui.tab).parent())
+                        $(ui.tab).parent().css({"background":"rgb(247,247,247) url() no-repeat fixed top","border":"none"})
+                        $(ui.tab).parent().find("li").css({"width":"80px","font-size":"13px"})
+                    }
                 });
+
                 that.editor={}
                 that.editor["outcome"]=new E("#teamReportDetail_outcome_menu",
                     "#teamReportDetail_outcome_editor");
@@ -151,10 +156,33 @@ define(['jquery', "wangEditor","jqueryui","jsviews","jquery.bootstrap"], functio
                     var problem=report.problem;
                     var plan=report.plan;
                     var title=$(ev.currentTarget).closest("[title]").attr("title").split("-");
-                    title=title[title.length-1]
+                    title=title[title.length-1];
                     that.reportDetail.openWithTxt("“"+username+"”的"+title+"项目周报",outcome,problem,plan);
+                },
+                editGenenalReport:function(ev){
+                    var user_id=gc.user.id;
+                    var roles=ev.data.roles;
+
+                    var ifA=false
+                    for(var i in roles){
+                        var role=roles[i];
+                        if(user_id==role["user_id"] && role["role"]==0){
+                            ifA=true;
+                            break;
+                        }
+                    }
+                    if(ifA){
+                        var report=ev.data.report;
+                        var username=report.user_name;
+                        var outcome=report.outcome;
+                        var problem=report.problem;
+                        var plan=report.plan;
+                        var title=$(ev.currentTarget).closest("[title]").attr("title").split("-");
+                        title=title[title.length-1];
+                        that.reportDetail.openWithTxt(title+"项目周报汇总",outcome,problem,plan);
+                    }
                 }
-            }
+            };
             var myTemplate = $.templates(tmpl);
 
             myTemplate.link("[moudule=m_browseTeamReport]", app,helpers)
