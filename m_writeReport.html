@@ -123,6 +123,7 @@
     <span style="color:#000;margin-left:5px">weekn</span>
 </div>
 
+{^{if controller.ifThisWeek}}
 {^{props controller.items}}
 <div class="report_item" item="{{>prop.report_item_num}}">
     <div class="report_category">
@@ -198,7 +199,56 @@
 <div id="add_report" style="font-size: 16px;height: 35px;width:150px;line-height: 35px;margin-left: 30px;color:rgb(130,195,255);cursor:pointer;">
     + 点击添加一项周报
 </div>
+{{else}}
+{^{if controller.items.length>0}}
+{^{controller.items.length}}
+{{/if}}
+{^{:controller.items.length}}
+{^{props controller.items}}
+<div class="report_item" item="{{>prop.report_item_num}}">
+    <div class="report_category">
+        <div><span class="glyphicon glyphicon-minus"></span></div>
+        <div class="dropdown">
+            <span data-toggle="dropdown" class='report_category_dropdown'>{^{option_txt:prop.select_0.name}}</span>
+        </div>
+        <div><span class="glyphicon glyphicon-chevron-right"></span></div>
+        <div class="dropdown" data-link="visible{:prop.option_1_visiable}">
+            <span class='report_category_dropdown' data-toggle="dropdown">{^{option_txt:prop.select_1.name}}</span>
+        </div>
+        <div><span class="glyphicon glyphicon-chevron-right"></span></div>
+        <div class="dropdown" data-link="visible{:prop.option_2_visiable}">
+            <span class='report_category_dropdown' data-toggle="dropdown">{^{option_txt:prop.select_2.name}}</span>
+        </div>
 
+    </div>
+    <div class="report_content" style="width:95%;margin:0 auto">
+        <div class="report_entry" tabindex="0">
+            <div class="report_entry_title">本周成果</div>
+            <!-- <div class="report_outcome"></div> -->
+            <div style="margin:0 auto;width:95%">
+                <div class="report_menu report_menu_outcome" tabindex="0"></div>
+                <div class="report_editor report_outcome" style="border-left: 3px solid rgb(245,245,245)"></div>
+            </div>
+        </div>
+        <div class="report_entry" tabindex="0">
+            <div class="report_entry_title">存在问题</div>
+            <div style="margin:0 auto;width:95%">
+                <div class="report_menu report_menu_problem" tabindex="0" style="margin:0 auto"></div>
+                <div class="report_editor report_problem" style="margin:0 auto"></div>
+            </div>
+        </div>
+        <div class="report_entry" tabindex="0">
+            <div class="report_entry_title">下周计划</div>
+            <div style="margin:0 auto;width:95%">
+                <div class="report_menu report_menu_plan" tabindex="0" style="margin:0 auto"></div>
+                <div class="report_editor report_plan" style="border-right: 3px solid rgb(245,245,245);margin:0 auto"></div>
+            </div>
+        </div>
+    </div>
+    <div style="height:1px; margin-top:10px;clear: both;overflow: hidden"></div>
+    <div style="width:90%;height:1px; margin:20px auto;clear: both;border-bottom:3px solid rgb(245,245,245);margin-bottom: 20px"></div>
+</div>
+{{/props}}
+{{/if}}
 
 <div style="height:1px; margin-top:20px;clear: both;overflow: hidden"></div>
-

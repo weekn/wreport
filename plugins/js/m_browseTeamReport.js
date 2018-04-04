@@ -16,6 +16,7 @@ define(['jquery', "wangEditor","jqueryui","jsviews","jquery.bootstrap"], functio
     function ReportDetail(){
         this.top="11px";
         this.editor="null";
+        this.ifsubmit=false;
         this.menulist=[
             'bold',
             'italic',
@@ -84,6 +85,9 @@ define(['jquery', "wangEditor","jqueryui","jsviews","jquery.bootstrap"], functio
             this.divformat();
 
             $.observable(that).setProperty("title",title);
+            console.log("-------------")
+            console.log(editor_record_dic[report_id]["outcome"].txt.html())
+            console.log(editor_record_dic[report_id]["problem"].txt.html())
             that.editor["outcome"].txt.html(editor_record_dic[report_id]["outcome"].txt.html());
             that.editor["problem"].txt.html(editor_record_dic[report_id]["problem"].txt.html());
             that.editor["plan"].txt.html(editor_record_dic[report_id]["plan"].txt.html());
@@ -106,6 +110,7 @@ define(['jquery', "wangEditor","jqueryui","jsviews","jquery.bootstrap"], functio
 
                 "overflow-y":"auto"
             });
+            $.observable(this).setProperty("ifsubmit",false);
         }
     }
     function BrowseTeamReport_m(){
@@ -137,7 +142,9 @@ define(['jquery', "wangEditor","jqueryui","jsviews","jquery.bootstrap"], functio
         };
 
 
-
+        this.fresh=function(){
+            this.getReport();
+        };
         this.init=function(tmpl){
             var that=this;
 
@@ -158,12 +165,13 @@ define(['jquery', "wangEditor","jqueryui","jsviews","jquery.bootstrap"], functio
                     var title=$(ev.currentTarget).closest("[title]").attr("title").split("-");
                     title=title[title.length-1];
                     that.reportDetail.openWithTxt("“"+username+"”的"+title+"项目周报",outcome,problem,plan);
+
                 },
                 editGenenalReport:function(ev){
                     var user_id=gc.user.id;
                     var roles=ev.data.roles;
 
-                    var ifA=false
+                    var ifA=false;
                     for(var i in roles){
                         var role=roles[i];
                         if(user_id==role["user_id"] && role["role"]==0){
@@ -177,9 +185,14 @@ define(['jquery', "wangEditor","jqueryui","jsviews","jquery.bootstrap"], functio
                         var outcome=report.outcome;
                         var problem=report.problem;
                         var plan=report.plan;
+                        that.reportDetail.project_id=report.project_id;
+
                         var title=$(ev.currentTarget).closest("[title]").attr("title").split("-");
                         title=title[title.length-1];
                         that.reportDetail.openWithTxt(title+"项目周报汇总",outcome,problem,plan);
+                        $.observable(that.reportDetail).setProperty("ifsubmit",true);
+                    }else{
+                        gc.goDialog("您没有汇总周报的权限哦！");
                     }
                 }
             };
@@ -187,7 +200,7 @@ define(['jquery', "wangEditor","jqueryui","jsviews","jquery.bootstrap"], functio
 
             myTemplate.link("[moudule=m_browseTeamReport]", app,helpers)
                 .on("click",".teamReport_0_top",function(){
-                    console.log(this)
+
                     if( $(this).next().is(':hidden')){　　//如果node是隐藏的则显示node元素，否则隐藏
                         $(this).removeClass("teamReport_0_top_hide");
                     }else{
@@ -211,7 +224,7 @@ define(['jquery', "wangEditor","jqueryui","jsviews","jquery.bootstrap"], functio
                 })
                 .on("click","[name=team_report_clk2]",function(){
                     var tar=$(this).closest(".teamReport_2_top");
-                    console.log(tar)
+
                     if( tar.next().is(':hidden')){　　//如果node是隐藏的则显示node元素，否则隐藏
                         tar.removeClass("teamReport_0_top_hide");
                     }else{
@@ -222,7 +235,7 @@ define(['jquery', "wangEditor","jqueryui","jsviews","jquery.bootstrap"], functio
                     tar.next().slideToggle();
 
                 })
-                .on("dblclick",".teamReport_content_content",function(){
+                .on("dblclick",".teamReport_content_content",function(){//打开详情浏览
                     var title=$(this).closest("[pro_id]").find("[title]").attr("title");
                     var report_id=$(this).closest("[report_id]").attr("report_id");
 
@@ -232,7 +245,25 @@ define(['jquery', "wangEditor","jqueryui","jsviews","jquery.bootstrap"], functio
                 })
                 .on("click",".teamReportDetail_back",function(){
                     that.reportDetail.close();
-                });
+
+                })
+                .on("click","#teamReportDetail_submit",function(){
+                    var outcome=that.reportDetail.editor["outcome"].txt.html();
+                    var plan=that.reportDetail.editor["plan"].txt.html();
+                    var problem=that.reportDetail.editor["problem"].txt.html();
+                    data={
+                        outcome:outcome,
+                        problem:problem,
+                        plan:plan
+                    };
+
+                    gc.ajax("/report/sumarize/project/"+that.reportDetail.project_id,"POST",data,"",function(){
+                        that.getReport();
+                        that.reportDetail.close();
+                    })
+
+
+                })
 
             //初始化编辑器
 

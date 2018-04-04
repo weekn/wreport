@@ -188,7 +188,10 @@ define(['jquery', "wangEditor", "jsviews", "jquery.bootstrap"], function ($, E) 
             var that=this;
             that.getProject(function(){
                 that.getReport();
-            })
+            });
+
+            $.observable(this).setProperty("ifThisWeek",gc.ifThisWeek);
+
         };
         this.getProject=function(fuc){
             var that=this;
@@ -217,7 +220,7 @@ define(['jquery', "wangEditor", "jsviews", "jquery.bootstrap"], function ($, E) 
                 that.items[that.report_item_num + ""].init();
 
             }
-            var url="/report/user/admin";
+            var url="/report/user/"+gc.user["username"]+"?"+$.param({time:gc.chosenDate});
             gc.ajax(url,"GET","","",function(rsp){
                 $.observable(that).setProperty("items",{});
                 that.report_item_num=0;
@@ -235,6 +238,9 @@ define(['jquery', "wangEditor", "jsviews", "jquery.bootstrap"], function ($, E) 
         };
         this.submitReport=function(item){
             var that = this;
+            if(!that.ifThisWeek){
+                return
+            }
 
             var e_outcome=that.items[item].editor_outcome.txt.html();
             var e_problem=that.items[item].editor_problem.txt.html();
@@ -267,8 +273,7 @@ define(['jquery', "wangEditor", "jsviews", "jquery.bootstrap"], function ($, E) 
                     };
 
                 gc.ajax("/report","POST",report_data,"",function(rsp){
-                    console.log("in post ffffff")
-                    console.log(rsp)
+
                     that.items[item].report["outcome"]=e_outcome;
                     that.items[item].report["problem"]=e_problem;
                     that.items[item].report["plan"]=e_plan;
@@ -306,6 +311,11 @@ define(['jquery', "wangEditor", "jsviews", "jquery.bootstrap"], function ($, E) 
             var app = {
                 controller: this
             };
+            $.views.tags("mytag", {
+                init: function(tagCtx) {
+                    this.template = (tagCtx.props.mode === "a" ? "template A: <em>{{:}}</em> aaa<br/>" : "template B: <em>{{:}}</em> bbb<br/>");
+                }
+            });
             var myTemplate = $.templates(templ);
 
 
@@ -347,8 +357,10 @@ define(['jquery', "wangEditor", "jsviews", "jquery.bootstrap"], function ($, E) 
                     that.removeReportItem(item);
                     //$(this).before(report_item) ;
                 })
-                .on("focus", ".report_entry div", function () { //不编辑时把menu隐藏
-
+                .on("focus", ".report_entry div", function () { //不编辑时把menu隐藏,如果不是本周周报，不显示menu
+                    if(!that.ifThisWeek){//是否本周
+                        return
+                    }
                     if (!$(this).hasClass("report_menu")) {
                         //先把所有的inter清了
                         for (var i in report_entry_inter_code_arr) {

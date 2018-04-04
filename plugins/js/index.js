@@ -48,15 +48,26 @@ define(['jquery', "jqueryui"], function($) {
                     var select_comdays=(select_date.getTime()- select_date.getDay()*(1000*24*60*60))/(1000*24*60*60);
                     var today_comdays=(today_date.getTime()-today_date.getDay()*(1000*24*60*60)-today_date.getHours()*1000*60*60)/(1000*24*60*60);
                     var new_weekn_d=Math.round((today_comdays-select_comdays)/7);
+                    // if(new_weekn_d!=that.weekn_d){//有无更新
+                    //     that.weekn_d=new_weekn_d;
+                    //     if(new_weekn_d>0){//只能选之前或本周
+                    //         $("#choose_date_span").html(dateText+" 上"+new_weekn_d+"周");
+                    //     }else if(new_weekn_d==0){
+                    //         $("#choose_date_span").html("本周");
+                    //     }
+                    // }
                     if(new_weekn_d!=that.weekn_d){//有无更新
+                        //gc.chosenDate=new_weekn_d;
                         that.weekn_d=new_weekn_d;
                         if(new_weekn_d>0){//只能选之前或本周
                             $("#choose_date_span").html(dateText+" 上"+new_weekn_d+"周");
+                            gc.ifThisWeek=false;
                         }else if(new_weekn_d==0){
                             $("#choose_date_span").html("本周");
+                            gc.ifThisWeek=true;
                         }
+                        gc.changeDate(select_date.getTime());
                     }
-
 
                     // console.log(timeStamp/(1000*24*60*60))
                     // var select_timedays=today_timeStamp/(1000*24*60*60);
@@ -66,7 +77,7 @@ define(['jquery', "jqueryui"], function($) {
                 }
             });
             that.dom.find(".fa-calendar,#choose_date_span").click(function(){
-                console.log(that.dom.find("#choose_date"))
+
                 that.dom.find("#choose_date").focus();
             });
 

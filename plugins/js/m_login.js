@@ -16,6 +16,7 @@ define(['jquery', "wangEditor","jsviews","jquery.bootstrap"], function($, E) {
             gc.ajax("/token","POST",data,"",function(rsp){
                 gc["user"]=rsp["response"];
                 console.log(JSON.stringify(gc["user"]));
+                window.localStorage.setItem("wreport_user",JSON.stringify(gc["user"]));
                 window.location.href="index.html#/myReport";
             })
         };

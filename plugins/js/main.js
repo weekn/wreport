@@ -37,12 +37,12 @@ require.config({
 require(["jquery","director","index","jsviews","jqueryui"],function($,Router){
 
 
-     var moudule_loaded={};
+    console.log(gc)
 
      var myReport =function(){
 
-
-        if(!moudule_loaded.hasOwnProperty("m_writeReport")){
+         gc.moudule_point="m_writeReport";
+        if(!gc.moudule_loaded.hasOwnProperty("m_writeReport")){
             console.log("myReport");
             $.get("m_writeReport.html", function(data) {
                 require(["m_writeReport"],function(M){
@@ -50,7 +50,7 @@ require(["jquery","director","index","jsviews","jqueryui"],function($,Router){
 
                     var mouduel=new M(data);
                     mouduel.init(data);
-                    moudule_loaded["m_writeReport"]=mouduel;
+                    gc.moudule_loaded["m_writeReport"]=mouduel;
                     //mouduel.getReport();
 
 
@@ -62,7 +62,7 @@ require(["jquery","director","index","jsviews","jqueryui"],function($,Router){
 
         }else{
             $("[moudule=m_writeReport]").show();
-            moudule_loaded["m_writeReport"].fresh();
+            gc.moudule_loaded["m_writeReport"].fresh();
         }
 
     };
@@ -70,8 +70,8 @@ require(["jquery","director","index","jsviews","jqueryui"],function($,Router){
 
     };
     var browseTeamReport=function (){
-
-        if(moudule_loaded["m_browseTeamReport"]!=true){
+        gc.moudule_point="m_browseTeamReport";
+        if(!gc.moudule_loaded.hasOwnProperty("m_browseTeamReport")){
 
             $.get("m_browseTeamReport2.html", function(tmpl) {
 
@@ -80,12 +80,14 @@ require(["jquery","director","index","jsviews","jqueryui"],function($,Router){
 
                     var b=new B();
                     b.init(tmpl);
+                    gc.moudule_loaded["m_browseTeamReport"]=b;
                 })
 
                 //
             });
-            moudule_loaded["m_browseTeamReport"]=true;
+
         }else{
+            gc.moudule_loaded["m_browseTeamReport"].fresh();
             $("[moudule=m_browseTeamReport]").show(50);
         }
 
@@ -95,7 +97,7 @@ require(["jquery","director","index","jsviews","jqueryui"],function($,Router){
             on:function(){
 
                 $("[moudule=m_login]").show();
-                if(moudule_loaded["m_login"]!=true){
+                if(gc.moudule_loaded["m_login"]!=true){
 
                     $.get("m_login.html", function(tmpl) {
 
@@ -108,7 +110,7 @@ require(["jquery","director","index","jsviews","jqueryui"],function($,Router){
 
                         //
                     });
-                    moudule_loaded["m_login"]=true;
+                    gc.moudule_loaded["m_login"]=true;
                 }
             },
             after:function(){
@@ -138,7 +140,8 @@ require(["jquery","director","index","jsviews","jqueryui"],function($,Router){
             "/user":{
                 on:function(){
                     console.log("setting user");
-                    if(moudule_loaded["m_setting"]!=true){
+                    gc.moudule_point="m_setting";
+                    if(gc.moudule_loaded["m_setting"]!=true){
                         $.get("m_setting.html", function(tmpl) {
 
                             require(["m_setting"],function(B){
@@ -146,7 +149,7 @@ require(["jquery","director","index","jsviews","jqueryui"],function($,Router){
 
                                 var b=new B();
                                 b.init(tmpl);
-                                moudule_loaded["m_setting"]=true;
+                                gc.moudule_loaded["m_setting"]=true;
                             })
 
                             //
@@ -179,21 +182,15 @@ require(["jquery","director","index","jsviews","jqueryui"],function($,Router){
 });
 function GlobalControll(){
     this.base_url="http://localhost:8081";
-    this.user={
-        "id": 1,
-        "username": "admin",
-        "password": null,
-        "token": "156c34ab-25aa-4be2-ae6f-60dd9e579714",
-        "roles": [
-            {
-                "id": null,
-                "name": "ROLE_ADMIN"
-            },
-            {
-                "id": null,
-                "name": "ROLE_USER"
-            }
-        ]
+    this.moudule_loaded={};
+    this.moudule_point="";//用于指向当前的moudule,主要是选择日期变化时调用模块更新
+    this.user={};
+    this.chosenDate=new Date().getTime();
+    this.ifThisWeek=true;
+    this.changeDate=function(newdate){
+        this.chosenDate=newdate;
+        var moudule=this.moudule_loaded[this.moudule_point];
+        moudule.fresh();
     };
     this.ajax = function(url,method,data,msg,func){
         var that =this;
@@ -222,18 +219,28 @@ function GlobalControll(){
             }
         });
     };
-    this.goDialog=function(msg){
+    this.goDialog=function(msg){//一个公共弹出框
         $("#gc_dialog").find("p").html(msg);
         $("#gc_dialog").dialog();
         setTimeout(function(){
             $("#gc_dialog").dialog( "destroy" );
         },3000)
-    }
+    };
+    this.init=function(){
+        // var user=window.localStorage.setItem("key",{aa:134});
+        var user=window.localStorage.getItem("wreport_user");
+        if(user==null ||typeof(user) == "undefined"){
+            window.location.href="index.html#/login";
+        }else{
+            this.user=eval('(' + user + ')');
+        }
 
+    }
 
 
 }
 var gc=new GlobalControll();
+gc.init();
 
 base_url="http://localhost:8081";
 // require(["jquery","wangEditor","jquery.bootstrap","index","reportItem","jsviews"],function($,E){

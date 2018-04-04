@@ -167,7 +167,6 @@
     }
 
 
-
 </style>
 
 <div id="teamReportDetail_alert_panel"
@@ -182,8 +181,9 @@
 
             </div>
 
-            <button style="float:right;background-color: transparent;  border: none;  font-size: 12px;">确认</button>
-
+            {^{if reportDetail.ifsubmit}}
+            <button id="teamReportDetail_submit" style="float:right;background-color: transparent;  border: none;  font-size: 12px;">确认</button>
+            {{/if}}
 
         </div>
         <div id="tabs">
