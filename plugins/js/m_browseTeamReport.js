@@ -119,7 +119,9 @@ define(['jquery', "wangEditor","jqueryui","jsviews","jquery.bootstrap"], functio
         this.getReport=function(){
 
             var that=this;
-            gc.ajax(get_data_path,"GET","","",function(rsp){
+
+            var url=get_data_path+"?"+$.param({time:gc.chosenDate});
+            gc.ajax(url,"GET","","",function(rsp){
                 var json=rsp["response"];
                 $.observable(that.reports).refresh(json);
                 editor_record_dic={};//clean
