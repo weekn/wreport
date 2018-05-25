@@ -137,7 +137,7 @@ require(["jquery","director","index","jsviews","jqueryui"],function($,Router){
             }
         },
         "/setting":{
-            "/user":{
+            "/team":{
                 on:function(){
                     console.log("setting user");
                     gc.moudule_point="m_setting";
@@ -164,7 +164,7 @@ require(["jquery","director","index","jsviews","jqueryui"],function($,Router){
                     $("[moudule=m_setting]").hide();
                 }
             },
-            "/team":{
+            "/user":{
                 on:function(){
 
                 }
@@ -184,7 +184,7 @@ function GlobalControll(){
     this.base_url="http://localhost:8081";
     this.moudule_loaded={};
     this.moudule_point="";//用于指向当前的moudule,主要是选择日期变化时调用模块更新
-    this.user={};
+    this.user={"token":""};
     this.chosenDate=new Date().getTime();
     this.ifThisWeek=true;
     this.changeDate=function(newdate){
@@ -202,7 +202,11 @@ function GlobalControll(){
             contentType:"application/json",
             data:JSON.stringify(data),
             beforeSend: function(xhr){
-                xhr.setRequestHeader('token', that.user["token"]);
+                console.log(that.user)
+                if(that.user!=null){
+                    xhr.setRequestHeader('token', that.user["token"]);
+                }
+
             },
             success: function(rsp){
                 if(rsp["status"]==-1){
@@ -216,6 +220,7 @@ function GlobalControll(){
             error:function(err){
                 console.log("ajax err--------------------");
                 console.log(err)
+                that.goDialog("请求出错，请稍后再试，或联系管理员哈");
             }
         });
     };
@@ -229,6 +234,8 @@ function GlobalControll(){
     this.init=function(){
         // var user=window.localStorage.setItem("key",{aa:134});
         var user=window.localStorage.getItem("wreport_user");
+        console.log("323232")
+        console.log(user)
         if(user==null ||typeof(user) == "undefined"){
             window.location.href="index.html#/login";
         }else{

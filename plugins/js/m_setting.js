@@ -33,13 +33,17 @@ define(['jquery', "jqueryui"], function($) {
         };
         this.deleteProject=function(id){
             var that=this;
-            $.ajax({
-                type: 'DELETE',
-                url: add_project_path+"/"+id,
-                success: function(rsp){
-                    $.observable(that).setProperty("runningProject",rsp['response']);
-                }
+            var url=add_project_path+"/"+id;
+            gc.ajax(url,"DELETE","","",function(rsp){
+                $.observable(that).setProperty("runningProject",rsp['response']);
             });
+            // $.ajax({
+            //     type: 'DELETE',
+            //     url: add_project_path+"/"+id,
+            //     success: function(rsp){
+            //
+            //     }
+            // });
         };
         this.init=function(tmpl){
             var that=this;

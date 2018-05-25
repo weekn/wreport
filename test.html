@@ -6,22 +6,60 @@
     <title>jQuery UI Datepicker - Populate alternate field</title>
     
     <script src="plugins/js/jquery-3.3.1.min.js"></script>
-    <script src="plugins/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+    <script src="plugins/jsview/jsviews.min.js"></script>
 </head>
 <body>
 
-<p>Date: <input type="text" id="datepicker">&nbsp;<input type="text" id="alternate" size="30"/></p>
+<div id="page"></div>
+<div id="mytag" style="display:none">
+	{^{:name}} 
+	{^{for works}}
+		<p>{{:}}</p>
+	{{/for}}
+<button id="btn">click</button>
+<script>
 
-<div class="demo-description">
-<p>Populate an alternate field with its own date format whenever a date is selected using the <code>altField</code> and <code>altFormat</code> options.  This feature could be used to present a human-friendly date for user selection, while passing a more computer-friendly date through for further processing.</p>
+
+</script>
 </div>
+
 </body>
 </html>
 
-<script >
-        $( "#datepicker" ).datepicker({
-            onClose:function( dateText,inst){
-                    alert("ffffffffff")
-                }
-        });
+<script id="myTmpl" type="text/x-jsrender">
+  <input data-link="d.name" /><br/>
+
+  Data-linked tag: {^{mytag d/}}<br/>
+</script>
+
+<script>
+
+var myTmpl = $.templates("#myTmpl"),
+  d = { 
+  name:"www",
+  works:["ps","java"]
+  
+};
+data={d:d}
+
+
+$.views.tags("mytag", {
+  init: function(tagCtx) {
+	console.log(0000)
+    this.template = $("#mytag").html();
+	
+  },
+  onAfterLink:function(){
+	console.log(this.mainElement)
+	$(document).on("click","#btn",function(){
+		$.observable(data).setProperty("d.name", "Main St");
+	})
+  },
+  onUpdate :function(e){
+	console.log(2)
+  }
+});
+
+myTmpl.link("#page", data);
+
 </script>
