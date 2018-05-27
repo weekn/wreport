@@ -161,7 +161,7 @@
                     <i class="fa fa-circle fa-stack-2x" style="color:rgb(33,137,247)"></i>
                     <i class="fa fa-plus fa-stack-1x fa-inverse" ></i>
                 </span>
-                <span  class="fa-stack fa-sm">
+                <span  class="fa-stack fa-sm" data-link="{on ~reSetPor}">
                     <i class="fa fa-circle fa-stack-2x" style="color: rgb(100,100,100)"></i>
                     <i class="fa fa-wrench fa-stack-1x fa-inverse" ></i>
                 </span>
@@ -186,7 +186,7 @@
                         <i class="fa fa-circle fa-stack-2x" style="color:rgb(33,137,247)"></i>
                         <i class="fa fa-plus fa-stack-1x fa-inverse" ></i>
                     </span>
-                    <span  class="fa-stack fa-sm">
+                    <span  class="fa-stack fa-sm" data-link="{on ~reSetPor}">
                         <i class="fa fa-circle fa-stack-2x" style="color: rgb(100,100,100)"></i>
                         <i class="fa fa-wrench fa-stack-1x fa-inverse" ></i>
                     </span>
@@ -236,25 +236,25 @@
 <div style="display: none">
 
 <div id="team_setting_addPro" title="增加一项">
+
     <p class="validateTips">All form fields are required.</p>
 
-    <form>
-        <fieldset>
+
             <label >项目名称</label>
-            <input type="text" id="add_pro_name" id="name"  class="text ui-widget-content ui-corner-all">
+            <input type="text" id="add_pro_name"  class="text ui-widget-content ui-corner-all"/>
             <label >时间计划</label>
 
             <div style="width:95%;display: flex;flex-direction: row;justify-content:space-between">
-                <input type="text" class="text ui-widget-content ui-corner-all" style="width:45%"/>
+                <input type="text" id="pro_set_starttime" class="text ui-widget-content ui-corner-all" style="width:45%"/>
                 至
-                <input type="text" class="text ui-widget-content ui-corner-all" style="width:45%"/>
+                <input type="text" id="pro_set_endtime"  class="text ui-widget-content ui-corner-all" style="width:45%"/>
 
             </div>
 
 
             <label >项目成员</label>
 
-            <div style="width:95%" id="add_pro_roleA_option">
+            <div style="width:95%;margin-top:5px;" >
                 <span class="dropdown" >
                     <span class='report_category_dropdown' data-toggle="dropdown">A角</span>
                     <ul class="dropdown-menu " role="menu" >
@@ -262,17 +262,43 @@
                         <li class="dropdown-header">增加</li>
                         {^{for setting.project_dialog.team_members}}
                         <li role="presentation">
-                            <a  role="menuitem" tabindex="-1" href="javascript:void(0)" data-link="{on ~selectArole }">{{:username}}</a>
+                            <a  role="menuitem" tabindex="-1" href="javascript:void(0)" data-link="{on ~selectArole 0}">{{:username}}</a>
                         </li>
                         {{/for}}
 
                     </ul>
                 </span>
 
-                {^{for setting.project_dialog.Arole}}
+                {^{for setting.project_dialog.roles}}
+                {^{if role==0}}
                 <span style="border-radius:10px;padding:3px;margin-left:4px;background-color: rgb(33,137,247);color:white">
-                    {{:username}} <i style="color:white" class="fa fa-close "></i>
+                    {{:username}} <i style="color:white" class="fa fa-close " data-link="{on ~deleteRole}"></i>
                 </span>
+                {{/if}}
+                {{/for}}
+            </div>
+
+            <div style="width:95%;margin-top:5px;margin-bottom: 5px" >
+                <span class="dropdown" >
+                    <span class='report_category_dropdown' data-toggle="dropdown">B角</span>
+                    <ul class="dropdown-menu " role="menu" >
+
+                        <li class="dropdown-header">增加</li>
+                        {^{for setting.project_dialog.team_members}}
+                        <li role="presentation">
+                            <a  role="menuitem" tabindex="-1" href="javascript:void(0)" data-link="{on ~selectArole 1}">{{:username}}</a>
+                        </li>
+                        {{/for}}
+
+                    </ul>
+                </span>
+
+                {^{for setting.project_dialog.roles}}
+                {^{if role==1}}
+                <span style="border-radius:10px;padding:3px;margin-left:4px;background-color: rgb(33,137,247);color:white">
+                    {{:username}} <i style="color:white" class="fa fa-close " data-link="{on ~deleteRole}"></i>
+                </span>
+                {{/if}}
                 {{/for}}
             </div>
 
@@ -284,8 +310,7 @@
             </textarea>
             <!-- Allow form submission with keyboard without duplicating the dialog button -->
             <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-        </fieldset>
-    </form>
+
 </div>
 
 <div id="dialog-confirm" title="删除项目">

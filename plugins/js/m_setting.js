@@ -8,11 +8,9 @@ define(['jquery', "jqueryui","jquery.bootstrap"], function($) {
         this.dialog = "";
         this.project_dialog={//用于数据绑定
             pro_name:"",
-            start_time:0,
-            end_time:0,
+
             team_members:[],
-            Arole:[],
-            Brole:[],
+            roles:[],
             brief:""
         };
         this.getRunningProject=function(){
@@ -44,13 +42,7 @@ define(['jquery', "jqueryui","jquery.bootstrap"], function($) {
             gc.ajax(url,"DELETE","","",function(rsp){
                 $.observable(that).setProperty("runningProject",rsp['response']);
             });
-            // $.ajax({
-            //     type: 'DELETE',
-            //     url: add_project_path+"/"+id,
-            //     success: function(rsp){
-            //
-            //     }
-            // });
+
         };
         this.init=function(tmpl){
             var that=this;
@@ -58,25 +50,61 @@ define(['jquery', "jqueryui","jquery.bootstrap"], function($) {
                 setting: this
             };
             var helpers = {
-                selectArole: function(e,ev){
+                selectArole: function(r,e,ev){
                     var ifhas=false;
                     var role=ev.linkCtx.data;
-                    for(var i in that.project_dialog.Arole){
-                        if(that.project_dialog.Arole[i]==role){
+                    role["role"]=r;
+                    for(var i in that.project_dialog.roles){
+                        if(that.project_dialog.roles[i]==role){
                             ifhas=true;
                             break;
                         }
                     }
                     if(!ifhas){
-                        $.observable(that.project_dialog.Arole).insert(role);
+                        $.observable(that.project_dialog.roles).insert(role);
+
                     }
 
+                },
+                deleteRole:function(e,ev){
+                    var index=0;
+                    var role=ev.linkCtx.data;
+                    that.project_dialog.Arole
+
+                    for(var i in that.project_dialog.roles){
+                        if(that.project_dialog.roles[i]["id"]==role["id"]){
+                            index=i;
+                            break;
+                        }
+                    }
+                    $.observable(that.project_dialog.roles).remove(index)
+                },
+                reSetPor:function(e,ev){
+                    var pro=ev.linkCtx.data;
+                    console.log(pro)
+                    var pro_name=pro["name"];
+                    var start_time=pro["plan_start_time"];
+                    var end_time=pro["plan_end_time"]
+                    var roles=[];
+                    for(var i in pro["roles"] ){
+                        roles.push({
+                            user_id:pro["roles"][i]["user_id"],
+                            role:pro["roles"][i]["role"],
+                            username: pro["roles"][i]["user_name"]
+                        })
+                    }
+                    $( "#team_setting_addPro" ).find("#add_pro_name").val(pro_name);
+                    $( "#team_setting_addPro" ).find("#pro_set_starttime").val(new Date(start_time));
+                    $( "#team_setting_addPro" ).find("#pro_set_endtime").val(new Date(end_time));
+                    $.observable(that.project_dialog).setProperty("roles",roles);
+                    that.dialog.dialog( "open" );
                 }
             };
             var myTemplate = $.templates(tmpl);
             myTemplate.link(".panel [moudule=m_setting]", app,helpers)
                 .ready(function(){
-
+                    $( "#pro_set_starttime" ).datepicker();
+                    $( "#pro_set_endtime" ).datepicker();
 
                     that.dialog=$( "#team_setting_addPro" ).dialog({
                         draggable:false,
@@ -91,11 +119,27 @@ define(['jquery', "jqueryui","jquery.bootstrap"], function($) {
                                 var level=$( "#team_setting_addPro" ).find(".validateTips").attr("add_pro_level");
                                 var up_id=$( "#team_setting_addPro" ).find(".validateTips").attr("up_id");
                                 var pro_name=$( "#team_setting_addPro" ).find("#add_pro_name").val();
+                                var pro_starttime=$( "#team_setting_addPro" ).find("#pro_set_starttime").val();
+                                var pro_endtime=$( "#team_setting_addPro" ).find("#pro_set_endtime").val();
+                                var pro_roles=[];
+                                for(var i in that.project_dialog.roles){
+                                    var newrole={
+                                        user_id:that.project_dialog.roles[i]["id"],
+                                        user_name:that.project_dialog.roles[i]["username"],
+                                        role:that.project_dialog.roles[i]["role"]
+                                    };
+                                    pro_roles.push(newrole)
+                                }
+
                                 var json_data={
                                     name:pro_name,
                                     level:level,
-                                    up_id:up_id
+                                    up_id:up_id,
+                                    plan_start_time:new Date(pro_starttime).getTime(),
+                                    plan_end_time:new Date(pro_endtime).getTime(),
+                                    roles:pro_roles
                                 };
+                                console.log(json_data)
                                 that.addProject(json_data);
                                 that.dialog.dialog( "close" );
                             },
@@ -105,7 +149,12 @@ define(['jquery', "jqueryui","jquery.bootstrap"], function($) {
                             }
                         },
                         open: function(event, ui) {
-                            $( "#team_setting_addPro" ).find("input,textarea").val("")
+
+                            gc.setFlow(false)
+                        },
+                        close:function(){
+                            $( "#team_setting_addPro" ).find("input,textarea").val("");
+                            gc.setFlow(true)
                         }
                     });
                 })

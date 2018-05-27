@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+<script data-main="plugins/js/main" defer async="true" src="plugins/js/require.js"></script>
+<link href="plugins/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="plugins/font-awesome-4.7.0/css/font-awesome.min.css">
+<link href="plugins/jquery-ui-1.12.1/demos/demos.css" rel="stylesheet">
+<link rel="stylesheet" href="plugins/jquery-ui-1.12.1/themes/base/all.css">
+<link rel="stylesheet" href="plugins/jquery-ui-1.12.1.custom/jquery-ui.theme.css">
+
+<link rel="stylesheet" href="plugins/css/index.css" type="text/css" />
+
+<style>
+    .ui-menu { width: 150px; padding-left: 0}
+</style>
+
+<body style="margin: 0;background-color: rgb(247,247,247)">
+
+
+    <div class="top">
+        <div class="top_left">
+            <input type="text" style="border:none;background-color: transparent;width:0;height: 0" id="choose_date"/>
+            经分组
+            <i class="fa fa-angle-left" aria-hidden="true"></i>
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+            <span id="choose_date_span" style="font-size:12px"></span>
+            <i class="fa fa-angle-right" aria-hidden="true"></i>
+        </div>
+        <div class="top_center">
+            <div class="top_center_div top_center_active" style="border-top-left-radius:25px;border-bottom-left-radius:25px;"><a href="#/myReport">我的周报</a></div>
+            <div class="top_center_div"><a href="#/browseTeamReport">团队周报</a></div>
+            <div class="top_center_div" style="border-top-right-radius:25px;border-bottom-right-radius:25px; "><a href="#/login">我的成就</a></div>
+        </div>
+        <div class="top_right">
+            <img style="border:1px solid rgb(219,220,224);width:38px;height:38px;padding:2px;border-radius:8px;background-color: #FFF;margin-bottom: 2px" src="plugins/img/user.png" />
+            <span style="color:#FFF;margin-left:10px">weekn</span>
+            <ul id="top_right_menu" style="z-index:901;position:absolute;right: 0">
+                <li>
+                    <div><a href="#/setting/user" style="height:inherit"><i class="fa fa-cog" style="position: relative;margin-right:10px"></i>个人设置</a></div>
+                </li>
+                <li>
+                    <div><a href="#/setting/team"><i class="fa fa-cogs" style="position: relative;margin-right:10px"></i>团队设置</a></div>
+                </li>
+                <li>
+                    <div>  <i class="fa fa-power-off" style="position: relative;margin-right:10px"></i></span>退出</div>
+                </li>
+
+            </ul>
+        </div>
+        <!-- <div style="height:1px; margin-top:20px;clear: both;overflow: hidden"></div> -->
+        <div id="ajax_loading">
+            <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>更新中
+        </div>
+
+    </div>
+
+    <div id="gc_dialog" title="友情提示" >
+        <p>This is the default dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
+    </div>
+    <div style="text-align: center;">
+
+    </div>
+
+    <div moudule="m_login" class="login" ></div>
+    <div class="panel">
+
+    </div>
+</body>
+
+<div id="tmp_test" style="display: none">
+<p>fdfdfdfd</p>
+{^{mytag1}}{{/mytag1}}
+</div>
+</html>

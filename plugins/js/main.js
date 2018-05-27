@@ -181,7 +181,7 @@ require(["jquery","director","index","jsviews","jqueryui"],function($,Router){
     
 });
 function GlobalControll(){
-    this.base_url="http://192.168.3.28:8081";
+    this.base_url="http://localhost:8081";
     this.moudule_loaded={};
     this.moudule_point="";//用于指向当前的moudule,主要是选择日期变化时调用模块更新
     this.user={"token":""};
