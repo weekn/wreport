@@ -114,6 +114,26 @@
     div#users-contain table td, div#users-contain table th { border: 1px solid #eee; padding: .6em 10px; text-align: left; }
     .ui-dialog .ui-state-error { padding: .3em; }
     .validateTips { border: 1px solid transparent; padding: 0.3em; }
+
+
+
+
+
+    .custom-combobox {
+        position: relative;
+        display: inline-block;
+    }
+    .custom-combobox-toggle {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin-left: -1px;
+        padding: 0;
+    }
+    .custom-combobox-input {
+        margin: 0;
+        padding: 5px 10px;
+    }
 </style>
 <div class="setting_team_running_project">
     <div class="setting_team_top">
@@ -222,6 +242,41 @@
         <fieldset>
             <label >项目名称</label>
             <input type="text" id="add_pro_name" id="name"  class="text ui-widget-content ui-corner-all">
+            <label >时间计划</label>
+
+            <div style="width:95%;display: flex;flex-direction: row;justify-content:space-between">
+                <input type="text" class="text ui-widget-content ui-corner-all" style="width:45%"/>
+                至
+                <input type="text" class="text ui-widget-content ui-corner-all" style="width:45%"/>
+
+            </div>
+
+
+            <label >项目成员</label>
+
+            <div style="width:95%" id="add_pro_roleA_option">
+                <span class="dropdown" >
+                    <span class='report_category_dropdown' data-toggle="dropdown">A角</span>
+                    <ul class="dropdown-menu " role="menu" >
+
+                        <li class="dropdown-header">增加</li>
+                        {^{for setting.project_dialog.team_members}}
+                        <li role="presentation">
+                            <a  role="menuitem" tabindex="-1" href="javascript:void(0)" data-link="{on ~selectArole }">{{:username}}</a>
+                        </li>
+                        {{/for}}
+
+                    </ul>
+                </span>
+
+                {^{for setting.project_dialog.Arole}}
+                <span style="border-radius:10px;padding:3px;margin-left:4px;background-color: rgb(33,137,247);color:white">
+                    {{:username}} <i style="color:white" class="fa fa-close "></i>
+                </span>
+                {{/for}}
+            </div>
+
+
             <label >项目说明</label>
 
             <textarea    class="text ui-widget-content ui-corner-all" style="resize:none;width:95%;height:120px">

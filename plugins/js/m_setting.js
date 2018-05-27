@@ -1,35 +1,42 @@
-define(['jquery', "jqueryui"], function($) {
+define(['jquery', "jqueryui","jquery.bootstrap"], function($) {
     // var get_running_project_path="data/project_data.json";
     var get_running_project_path="/project";
     var add_project_path="/project"
-    
+    var getTeamInfo_path="/user/team"
     function Setting(){
         this.runningProject=[];
+        this.dialog = "";
+        this.project_dialog={//用于数据绑定
+            pro_name:"",
+            start_time:0,
+            end_time:0,
+            team_members:[],
+            Arole:[],
+            Brole:[],
+            brief:""
+        };
         this.getRunningProject=function(){
             var that=this;
             gc.ajax(get_running_project_path,"GET","","",function(json){
                 $.observable(that).setProperty("runningProject",json["response"]);
             });
-            // $.get(get_running_project_path,function(json){
-            //
-            //
-            // });
+
         };
-        this.dialog = "";
+        this.refresh=function(){
+            var that=this;
+            gc.ajax(getTeamInfo_path,"GET","","",function(rsp){
+
+                $.observable(that.project_dialog).setProperty("team_members",rsp["response"][0]["members"]);
+
+                that.getRunningProject();
+            })
+        };
         this.addProject=function(data){
             var that=this;
             gc.ajax(add_project_path,'POST',data,"",function(rsp){
                 $.observable(that).setProperty("runningProject",rsp['response']);
             });
-            // $.ajax({
-            //       type: 'POST',
-            //       url: add_project_path,
-            //       contentType:"application/json",
-            //       data: JSON.stringify(data),
-            //       success: function(rsp){
-            //
-            //       }
-            // });
+
         };
         this.deleteProject=function(id){
             var that=this;
@@ -50,16 +57,34 @@ define(['jquery', "jqueryui"], function($) {
             var app = {
                 setting: this
             };
+            var helpers = {
+                selectArole: function(e,ev){
+                    var ifhas=false;
+                    var role=ev.linkCtx.data;
+                    for(var i in that.project_dialog.Arole){
+                        if(that.project_dialog.Arole[i]==role){
+                            ifhas=true;
+                            break;
+                        }
+                    }
+                    if(!ifhas){
+                        $.observable(that.project_dialog.Arole).insert(role);
+                    }
+
+                }
+            };
             var myTemplate = $.templates(tmpl);
-            myTemplate.link(".panel [moudule=m_setting]", app)
+            myTemplate.link(".panel [moudule=m_setting]", app,helpers)
                 .ready(function(){
 
 
                     that.dialog=$( "#team_setting_addPro" ).dialog({
                         draggable:false,
                         autoOpen:false,
-                        height: 400,
-                        width: 350,
+                        // height: 400,
+                        // width: 350,
+                        height: $(window).height()-8,
+                        width: $(window).width()-8,
                         modal: true,
                         buttons: {
                             "确认增加": function(){
@@ -133,7 +158,7 @@ define(['jquery', "jqueryui"], function($) {
                     });
                 })
 
-            this.getRunningProject();
+            this.refresh();
         };
 
     }

@@ -19,6 +19,7 @@ define(['jquery', "wangEditor","jsviews","jquery.bootstrap"], function($, E) {
                 window.localStorage.setItem("wreport_user",JSON.stringify(gc["user"]));
                 window.location.href="index.html#/myReport";
             })
+
         };
         this.init=function(tmpl){
             var that=this;
@@ -26,7 +27,8 @@ define(['jquery', "wangEditor","jsviews","jquery.bootstrap"], function($, E) {
             var myTemplate = $.templates(tmpl);
 
             myTemplate.link("[moudule=m_login]", app)
-                .on("click",".login_login button",function(){
+                .on("click",".login_login button",function(e){
+
                     that.login();
                 })
 

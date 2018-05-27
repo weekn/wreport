@@ -1,7 +1,7 @@
 define(['jquery', "wangEditor","jqueryui","jsviews","jquery.bootstrap"], function($, E) {
     var get_data_path="/report/team";
     var editor_record_dic={};
-
+    var double_clk_time=0;
     function ReportItem(name,id,report){
         this.name="";
         this.id="";
@@ -28,10 +28,8 @@ define(['jquery', "wangEditor","jqueryui","jsviews","jquery.bootstrap"], functio
         this.divformat=function(){
             var that=this;
             $("#teamReportDetail_alert_panel").show();//放前面才能获取正确宽度。高度
-            $(document.body).css({//先取消滚动条
+            gc.setFlow(false);//禁止滚动
 
-                "overflow-y":"hidden"
-            });
             if(that.editor=="null"){//判断是不是第一次启动，也放前面
                 $( "#tabs" ).tabs({
                     create: function( event, ui ) {
@@ -105,11 +103,7 @@ define(['jquery', "wangEditor","jqueryui","jsviews","jquery.bootstrap"], functio
         };
         this.close=function(){
             $("#teamReportDetail_alert_panel").hide();
-            //启用滚动条
-            $(document.body).css({
-
-                "overflow-y":"auto"
-            });
+            gc.setFlow(true);
             $.observable(this).setProperty("ifsubmit",false);
         }
     }
@@ -237,15 +231,30 @@ define(['jquery', "wangEditor","jqueryui","jsviews","jquery.bootstrap"], functio
                     tar.next().slideToggle();
 
                 })
-                .on("dblclick",".teamReport_content_content",function(){//打开详情浏览
-                    var title=$(this).closest("[pro_id]").find("[title]").attr("title");
-                    var report_id=$(this).closest("[report_id]").attr("report_id");
+                // .on("dblclick",".teamReport_content_content",function(){//打开详情浏览
+                //     var title=$(this).closest("[pro_id]").find("[title]").attr("title");
+                //     var report_id=$(this).closest("[report_id]").attr("report_id");
+                //
+                //     that.reportDetail.open(report_id,title);
+                //
+                //
+                // })
+                .on("click",".teamReport_content_content",function(){//打开详情浏览
+                    var now_time= new Date().getTime();
+                    if(now_time-double_clk_time<500){//双击事件
+                        var title=$(this).closest("[pro_id]").find("[title]").attr("title");
+                        var report_id=$(this).closest("[report_id]").attr("report_id");
 
-                    that.reportDetail.open(report_id,title);
+                        that.reportDetail.open(report_id,title);
+                    }else{
+                        double_clk_time=now_time;
+                    }
+
 
 
                 })
                 .on("click",".teamReportDetail_back",function(){
+                    console.log("fffff")
                     that.reportDetail.close();
 
                 })

@@ -181,7 +181,7 @@ require(["jquery","director","index","jsviews","jqueryui"],function($,Router){
     
 });
 function GlobalControll(){
-    this.base_url="http://localhost:8081";
+    this.base_url="http://192.168.3.28:8081";
     this.moudule_loaded={};
     this.moudule_point="";//用于指向当前的moudule,主要是选择日期变化时调用模块更新
     this.user={"token":""};
@@ -194,8 +194,10 @@ function GlobalControll(){
     };
     this.ajax = function(url,method,data,msg,func){
         var that =this;
+
         console.log("-----------gc-agax------------------");
         $("#ajax_loading").show();
+
         $.ajax({
             url: that.base_url+url,
             type:method,
@@ -209,6 +211,7 @@ function GlobalControll(){
 
             },
             success: function(rsp){
+
                 if(rsp["status"]==-1){
                     window.location.href="index.html#/login";
                 }else{
@@ -216,8 +219,10 @@ function GlobalControll(){
                 }
                 $("#ajax_loading").hide();
 
+
             },
             error:function(err){
+
                 console.log("ajax err--------------------");
                 console.log(err)
                 that.goDialog("请求出错，请稍后再试，或联系管理员哈");
@@ -230,6 +235,26 @@ function GlobalControll(){
         setTimeout(function(){
             $("#gc_dialog").dialog( "destroy" );
         },3000)
+    };
+    this.setFlow=function(bool){
+        if(bool){
+            //启用滚动条
+            $(document.body).css({
+
+                "overflow-y":"auto"
+            });
+            //手机浏览器自由滚动
+            $("body").off("touchmove");
+        }else{
+            $(document.body).css({//取消滚动条
+
+                "overflow-y":"hidden"
+            });
+            $("body").on("touchmove",function(event){//禁止手机浏览器滚动
+                event.preventDefault;
+            }, false)
+
+        }
     };
     this.init=function(){
         // var user=window.localStorage.setItem("key",{aa:134});
@@ -249,7 +274,7 @@ function GlobalControll(){
 var gc=new GlobalControll();
 gc.init();
 
-base_url="http://localhost:8081";
+
 // require(["jquery","wangEditor","jquery.bootstrap","index","reportItem","jsviews"],function($,E){
 //     $(function(){
 //         // alert(E);  
