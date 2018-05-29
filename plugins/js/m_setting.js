@@ -8,7 +8,7 @@ define(['jquery', "jqueryui","jquery.bootstrap"], function($) {
         this.dialog = "";
         this.project_dialog={//用于数据绑定
             pro_name:"",
-
+            status:0,//0表示新增，1表示update
             team_members:[],
             roles:[],
             brief:""
@@ -35,6 +35,12 @@ define(['jquery', "jqueryui","jquery.bootstrap"], function($) {
                 $.observable(that).setProperty("runningProject",rsp['response']);
             });
 
+        };
+        this.resetProject=function(data){
+            var that=this;
+            gc.ajax(add_project_path,"PUT",data,"",function(rsp){
+                $.observable(that).setProperty("runningProject",rsp['response']);
+            });
         };
         this.deleteProject=function(id){
             var that=this;
@@ -81,7 +87,8 @@ define(['jquery', "jqueryui","jquery.bootstrap"], function($) {
                 },
                 reSetPor:function(e,ev){
                     var pro=ev.linkCtx.data;
-                    console.log(pro)
+                    that.project_dialog["id"]=pro["id"];
+                    that.project_dialog.status=1;
                     var pro_name=pro["name"];
                     var start_time=pro["plan_start_time"];
                     var end_time=pro["plan_end_time"]
@@ -94,8 +101,8 @@ define(['jquery', "jqueryui","jquery.bootstrap"], function($) {
                         })
                     }
                     $( "#team_setting_addPro" ).find("#add_pro_name").val(pro_name);
-                    $( "#team_setting_addPro" ).find("#pro_set_starttime").val(new Date(start_time));
-                    $( "#team_setting_addPro" ).find("#pro_set_endtime").val(new Date(end_time));
+                    $( "#team_setting_addPro" ).find("#pro_set_starttime").val( new Date(start_time).format("yyyy-MM-dd"));
+                    $( "#team_setting_addPro" ).find("#pro_set_endtime").val((new Date(end_time)).format("yyyy-MM-dd"));
                     $.observable(that.project_dialog).setProperty("roles",roles);
                     that.dialog.dialog( "open" );
                 }
@@ -103,8 +110,12 @@ define(['jquery', "jqueryui","jquery.bootstrap"], function($) {
             var myTemplate = $.templates(tmpl);
             myTemplate.link(".panel [moudule=m_setting]", app,helpers)
                 .ready(function(){
-                    $( "#pro_set_starttime" ).datepicker();
-                    $( "#pro_set_endtime" ).datepicker();
+                    $( "#pro_set_starttime" ).datepicker({
+                        dateFormat: "yy-mm-dd"
+                    });
+                    $( "#pro_set_endtime" ).datepicker({
+                        dateFormat: "yy-mm-dd"
+                    });
 
                     that.dialog=$( "#team_setting_addPro" ).dialog({
                         draggable:false,
@@ -140,7 +151,13 @@ define(['jquery', "jqueryui","jquery.bootstrap"], function($) {
                                     roles:pro_roles
                                 };
                                 console.log(json_data)
-                                that.addProject(json_data);
+                                if(that.project_dialog["status"]==0){//add
+                                    that.addProject(json_data);
+                                }else{
+                                    json_data["id"]= that.project_dialog["id"];
+                                    that.resetProject(json_data);
+                                }
+
                                 that.dialog.dialog( "close" );
                             },
                             "取消": function() {
@@ -154,6 +171,8 @@ define(['jquery', "jqueryui","jquery.bootstrap"], function($) {
                         },
                         close:function(){
                             $( "#team_setting_addPro" ).find("input,textarea").val("");
+                            $.observable(that.project_dialog.roles).refresh([])
+
                             gc.setFlow(true)
                         }
                     });
@@ -179,11 +198,13 @@ define(['jquery', "jqueryui","jquery.bootstrap"], function($) {
                     var up_id=$(this).closest("[pro_id]").attr("pro_id");
                     var level=title.split("-").length;
                     $( "#team_setting_addPro" ).find(".validateTips").html("您即将在“"+title+"”下添加子项").attr("add_pro_level",level).attr("up_id",up_id);
+                    that.project_dialog.status=0;
                     that.dialog.dialog( "open" );
                 })
                 .on("click","[name=team_setting_add_pro_0]",function(){//增加一级项目
                     var level=0;
                     $( "#team_setting_addPro" ).find(".validateTips").html("您即将添加项目").attr("add_pro_level",level).attr("up_id","");
+                    that.project_dialog.status=0;
                     that.dialog.dialog( "open" );
                 })
                 .on("click",".fa-trash-o",function(){
